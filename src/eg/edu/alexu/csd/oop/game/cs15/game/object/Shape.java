@@ -4,18 +4,18 @@ import java.awt.image.BufferedImage;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
 
-public class Shape implements GameObject{
+public class Shape implements GameObject {
 	private int x, y;
 	private boolean visible;
 	private GameObject ballType;
+	private State s;
 
-	
-	
-	public Shape (int x, int y, GameObject ballType) {
+	public Shape(int x, int y, GameObject ballType) {
 		this.x = x;
 		this.y = y;
 		this.visible = true;
 		this.ballType = ballType;
+		this.s = new MovingXState();
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class Shape implements GameObject{
 	@Override
 	public void setX(int x) {
 		this.x = x;
-		
+
 	}
 
 	@Override
@@ -57,6 +57,18 @@ public class Shape implements GameObject{
 	@Override
 	public BufferedImage[] getSpriteImages() {
 		return this.ballType.getSpriteImages();
+	}
+
+	public void move() {
+		s.move(this);
+	}
+
+	public State getSate() {
+		return s;
+	}
+
+	public void setSate(State s) {
+		this.s = s;
 	}
 
 }

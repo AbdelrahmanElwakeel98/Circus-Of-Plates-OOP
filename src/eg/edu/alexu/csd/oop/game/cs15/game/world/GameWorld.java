@@ -8,6 +8,7 @@ import java.util.Random;
 import eg.edu.alexu.csd.oop.game.GameObject;
 import eg.edu.alexu.csd.oop.game.World;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Shape;
+import eg.edu.alexu.csd.oop.game.cs15.game.object.StopState;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Clown;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.ConstantBackground;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.FlyWeightFactory;
@@ -72,7 +73,8 @@ public class GameWorld implements World {
 		boolean timeout = System.currentTimeMillis() - startTime > MAX_TIME;
 		GameObject c = control.get(0);
 		for (GameObject m : moving) {
-			m.setY((m.getY() + 1));
+			Shape l = (Shape) m;
+			l.move();
 			if (m.getY() == getHeight()) {
 				// reuse the star in another position
 				m.setY(-1 * (int) (Math.random() * getHeight()));
@@ -83,10 +85,13 @@ public class GameWorld implements World {
 					&& (Math.abs((m.getY() + m.getHeight() / 2) - (c.getY() + c.getHeight() / 2)) <= c.getHeight()/2)) {
 				if ((c.getX() + c.getWidth() / 2) < (m.getX() + m.getWidth() / 2) ) {
 					m.setX(m.getX() + 50);
-					control.add(m);
+					l.setSate(new StopState());
+					control.add(l);
+					
 				} else {
 					m.setX(m.getX() - 50);
-					control.add(m);
+					l.setSate(new StopState());
+					control.add(l);
 				}
 			}
 
