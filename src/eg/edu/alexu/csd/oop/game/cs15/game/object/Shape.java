@@ -4,14 +4,14 @@ import java.awt.image.BufferedImage;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
 
-public class Ball implements GameObject{
+public class Shape implements GameObject{
 	private int x, y;
 	private boolean visible;
 	private GameObject ballType;
 
 	
 	
-	public Ball (int x, int y, GameObject ballType) {
+	public Shape (int x, int y, GameObject ballType) {
 		this.x = x;
 		this.y = y;
 		this.visible = true;

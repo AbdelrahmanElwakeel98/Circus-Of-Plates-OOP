@@ -7,12 +7,12 @@ import javax.imageio.ImageIO;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
 
-public class BallType implements GameObject {
+public class ImageType implements GameObject {
 	private static final int MAX_MSTATE = 1;
 	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
 	private boolean visible;
 	
-	public BallType (String path) {
+	public ImageType (String path) {
 		
 		this.visible = true;
 		// create a bunch of buffered images and place into an array, to be displayed sequentially
