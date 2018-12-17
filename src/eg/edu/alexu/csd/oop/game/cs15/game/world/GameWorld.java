@@ -3,6 +3,7 @@ package eg.edu.alexu.csd.oop.game.cs15.game.world;
 import java.util.LinkedList;
 
 import java.util.List;
+import java.util.Random;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
 import eg.edu.alexu.csd.oop.game.World;
@@ -19,16 +20,23 @@ public class GameWorld implements World {
 	private final List<GameObject> constant = new LinkedList<GameObject>();
 	private final List<GameObject> moving = new LinkedList<GameObject>();
 	private final List<GameObject> control = new LinkedList<GameObject>();
-
+	private String paths[] = {"/basketballBlack.png","/basketballBlue.png","/basketballPurple.png","/footballBlack.png","/footballBlue.png","/footballPurple.png"};
+	
+	
+	public String getRandom(String[] array) {
+	    int rnd = new Random().nextInt(array.length);
+	    return array[rnd];
+	}
+	
 	public GameWorld(int screenWidth, int screenHeight) {
 		width = screenWidth;
 		height = screenHeight;
 		// moving objects (enemy)
 		//for(int i=0; i<10; i++)
-			control.add(new Shape(screenWidth/3, (int)(screenHeight*0.8), new FlyWeightFactory().getShape("/footballBlack.png")));
+			control.add(new Shape(screenWidth/3, (int)(screenHeight*0.8), new FlyWeightFactory().getShape(getRandom(paths))));
 		for(int i=0; i<10; i++)
-		moving.add(new Shape((int)(Math.random() * screenWidth), -1 * (int)(Math.random() * screenHeight), new FlyWeightFactory().getShape("/footballBlack.png")));
-			constant.add(new Shape((int)(screenWidth*0.9*Math.random()), (int)(screenHeight*0.9*Math.random()), new FlyWeightFactory().getShape("/footballBlack.png")));
+		moving.add(new Shape((int)(Math.random() * screenWidth), -1 * (int)(Math.random() * screenHeight), new FlyWeightFactory().getShape(getRandom(paths))));
+			constant.add(new Shape((int)(screenWidth*0.9*Math.random()), (int)(screenHeight*0.9*Math.random()), new FlyWeightFactory().getShape(getRandom(paths))));
 	}
 
 	@Override
