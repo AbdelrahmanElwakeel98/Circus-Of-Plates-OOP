@@ -8,6 +8,7 @@ import java.util.Random;
 import eg.edu.alexu.csd.oop.game.GameObject;
 import eg.edu.alexu.csd.oop.game.World;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Shape;
+import eg.edu.alexu.csd.oop.game.cs15.game.object.Clown;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.FlyWeightFactory;
 
 public class GameWorld implements World {
@@ -33,7 +34,7 @@ public class GameWorld implements World {
 		height = screenHeight;
 		// moving objects (enemy)
 		//for(int i=0; i<10; i++)
-			control.add(new Shape(screenWidth/3, (int)(screenHeight*0.8), new FlyWeightFactory().getShape(getRandom(paths))));
+		control.add(new Clown (screenWidth/3, (int)(screenHeight*0.5), "/moSalah.png"));
 		for(int i=0; i<10; i++)
 		moving.add(new Shape((int)(Math.random() * screenWidth), -1 * (int)(Math.random() * screenHeight), new FlyWeightFactory().getShape(getRandom(paths))));
 			constant.add(new Shape((int)(screenWidth*0.9*Math.random()), (int)(screenHeight*0.9*Math.random()), new FlyWeightFactory().getShape(getRandom(paths))));
@@ -88,7 +89,7 @@ public class GameWorld implements World {
 	@Override
 	public int getSpeed() {
 		// TODO Auto-generated method stub
-		return 10;
+		return 20;
 	}
 
 	@Override

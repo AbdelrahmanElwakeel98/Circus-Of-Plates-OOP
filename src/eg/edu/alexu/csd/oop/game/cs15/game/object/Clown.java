@@ -1,27 +1,48 @@
 package eg.edu.alexu.csd.oop.game.cs15.game.object;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class Clown implements GameObject {
 
+	private int x, y;
+	private boolean visible;
+	private String path;
+	private static final int MAX_MSTATE = 1;
+	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
+	
+	public Clown(int x, int y, String path){
+		this.x = x;
+		this.y = y;
+		this.visible = true;
+		
+		// create a bunch of buffered images and place into an array, to be displayed sequentially
+				try {
+					spriteImages[0] = ImageIO.read(getClass().getResourceAsStream(path));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		
+	}
+	
 	@Override
 	public int getX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.x;
 	}
 
 	@Override
 	public void setX(int x) {
-		// TODO Auto-generated method stub
+		this.x = x;
 
 	}
 
 	@Override
 	public int getY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.y;
 	}
 
 	@Override
@@ -32,26 +53,22 @@ public class Clown implements GameObject {
 
 	@Override
 	public int getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.spriteImages[0].getWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.spriteImages[0].getHeight();
 	}
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.visible;
 	}
 
 	@Override
 	public BufferedImage[] getSpriteImages() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.spriteImages;
 	}
 
 }
