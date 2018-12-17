@@ -7,15 +7,15 @@ import javax.imageio.ImageIO;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
 
-public class Clown implements GameObject {
-
+public class ConstantBackground implements GameObject {
+	
 	private int x, y;
 	private boolean visible;
 	private String path;
 	private static final int MAX_MSTATE = 1;
 	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
 	
-	public Clown(int x, int y, String path){
+	public ConstantBackground(int x, int y, String path){
 		this.x = x;
 		this.y = y;
 		this.visible = true;
@@ -28,7 +28,7 @@ public class Clown implements GameObject {
 				}
 		
 	}
-	
+
 	@Override
 	public int getX() {
 		return this.x;
@@ -37,7 +37,7 @@ public class Clown implements GameObject {
 	@Override
 	public void setX(int x) {
 		this.x = x;
-
+		
 	}
 
 	@Override
@@ -47,18 +47,18 @@ public class Clown implements GameObject {
 
 	@Override
 	public void setY(int y) {
-		// TODO Auto-generated method stub
-
+		this.y = y;
+		
 	}
 
 	@Override
 	public int getWidth() {
-		return this.spriteImages[0].getHeight();
+		return this.spriteImages[0].getWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return this.spriteImages[0].getWidth();
+		return this.spriteImages[0].getHeight();
 	}
 
 	@Override
