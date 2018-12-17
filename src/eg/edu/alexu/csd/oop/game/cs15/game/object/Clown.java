@@ -53,12 +53,14 @@ public class Clown implements GameObject {
 
 	@Override
 	public int getWidth() {
-		return this.spriteImages[0].getHeight();
+		System.out.println( "W    "+this.spriteImages[0].getHeight());
+		return this.spriteImages[0].getWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return this.spriteImages[0].getWidth();
+		System.out.println( "H    "+this.spriteImages[0].getWidth());
+		return this.spriteImages[0].getHeight();
 	}
 
 	@Override

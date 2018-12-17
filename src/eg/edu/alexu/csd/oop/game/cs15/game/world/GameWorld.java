@@ -78,10 +78,16 @@ public class GameWorld implements World {
 				m.setY(-1 * (int) (Math.random() * getHeight()));
 				m.setX((int) (Math.random() * getWidth()));
 			}
-			if ((Math.abs((m.getX() + m.getWidth() / 2) - (c.getX() + c.getWidth() / 2)) <= m.getWidth())
-					&& (Math.abs((m.getY() + m.getHeight() / 2) - (c.getY() + c.getHeight() / 2)) <= m.getHeight())) {
-				m.setY(m.getY()+ 50 );
-				
+			c.getHeight();
+			if ((Math.abs((m.getX() + m.getWidth() / 2) - (c.getX() + c.getWidth() / 2)) <= c.getWidth()/2)
+					&& (Math.abs((m.getY() + m.getHeight() / 2) - (c.getY() + c.getHeight() / 2)) <= c.getHeight()/2)) {
+				if ((c.getX() + c.getWidth() / 2) < (m.getX() + m.getWidth() / 2) ) {
+					m.setX(m.getX() + 50);
+					control.add(m);
+				} else {
+					m.setX(m.getX() - 50);
+					control.add(m);
+				}
 			}
 
 		}
@@ -98,7 +104,7 @@ public class GameWorld implements World {
 	@Override
 	public int getSpeed() {
 		// TODO Auto-generated method stub
-		return 20;
+		return 5;
 	}
 
 	@Override
