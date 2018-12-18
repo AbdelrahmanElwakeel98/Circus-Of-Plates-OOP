@@ -8,6 +8,7 @@ import java.util.Random;
 import eg.edu.alexu.csd.oop.game.GameObject;
 import eg.edu.alexu.csd.oop.game.World;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Shape;
+import eg.edu.alexu.csd.oop.game.cs15.game.object.StopStateLeft;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.StopStateRight;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Clown;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.ConstantBackground;
@@ -77,7 +78,7 @@ public class GameWorld implements World {
 		for (int i = 1; i < moving.size(); i++) {
 			GameObject m = moving.get(i);
 			Shape l = (Shape) m;
-			l.move();
+			l.move(1);
 			if (m.getY() == getHeight()) {
 				// reuse the star in another position
 				m.setY(-1 * (int) (Math.random() * getHeight()));
@@ -89,7 +90,7 @@ public class GameWorld implements World {
 				if ((c.getX() + c.getWidth() / 2) < (m.getX() + m.getWidth() / 2)) {
 					l.setX(c.getX() + c.getWidth() - m.getWidth());
 					l.setY(c.getY() - right);
-					l.setSate(new StopStateRight());
+					l.setSate(new StopStateLeft());
 					control.add(m);
 					moving.remove(m);
 					new FlyWeightFactory();
@@ -111,19 +112,20 @@ public class GameWorld implements World {
 			}
 
 		}
-		System.out.println(width - (c.getX() + c.getWidth()));
+		// System.out.println(width - (c.getX() + c.getWidth()));
 		for (int i = 1; i < control.size(); i++) {
-			Shape l = (Shape)control.get(i);
-			
+			Shape l = (Shape) control.get(i);
+
 			if (c.getX() == 0) {
 				if (l.getX() != 0) {
-					l.setX(c.getX() + c.getWidth() - l.getWidth());
+					l.move(c.getX() + c.getWidth());
 				}
 			} else if (c.getX() + c.getWidth() - 12 == width) {
 				if (l.getX() - c.getX() < l.getWidth()) {
-					l.setX(c.getX());
+					l.move(c.getX());
+					
 				}
-				
+
 			}
 		}
 

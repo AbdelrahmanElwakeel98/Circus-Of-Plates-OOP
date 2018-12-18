@@ -9,7 +9,7 @@ public class Shape implements GameObject {
 	private boolean visible;
 	private GameObject ballType;
 	private State s;
-
+    
 	public Shape(int x, int y, GameObject ballType) {
 		this.x = x;
 		this.y = y;
@@ -60,8 +60,8 @@ public class Shape implements GameObject {
 		return this.ballType.getSpriteImages();
 	}
 
-	public void move() {
-		s.move(this);
+	public void move(int k) {
+		s.move(this , k );
 	}
 
 	public State getSate() {
@@ -71,5 +71,7 @@ public class Shape implements GameObject {
 	public void setSate(State s) {
 		this.s = s;
 	}
+	
+		
 
 }
