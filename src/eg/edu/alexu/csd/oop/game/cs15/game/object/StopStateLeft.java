@@ -7,7 +7,6 @@ public class StopStateLeft implements State{
 		// TODO Auto-generated method stub
 		System.out.println(Myshape.getWidth());
 		Myshape.setX( k - Myshape.getWidth() );
-		Myshape.setSate(this);
 	}
 
 	@Override

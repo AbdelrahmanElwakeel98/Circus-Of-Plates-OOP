@@ -6,7 +6,6 @@ public class StopStateRight implements State {
 	public void move(Shape MyShape , int k) {
 		// TODO Auto-generated method stub
 		MyShape.setX(k);
-		MyShape.setSate(this);
 	}
 
 	@Override

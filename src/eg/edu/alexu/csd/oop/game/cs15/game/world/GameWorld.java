@@ -123,9 +123,7 @@ public class GameWorld implements World {
 			} else if (c.getX() + c.getWidth() - 12 == width) {
 				if (l.getX() - c.getX() < l.getWidth()) {
 					l.move(c.getX());
-					
 				}
-
 			}
 		}
 
