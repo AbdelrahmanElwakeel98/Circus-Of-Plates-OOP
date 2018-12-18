@@ -15,6 +15,7 @@ import eg.edu.alexu.csd.oop.game.cs15.game.object.Clown;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.ConstantBackground;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.FlyWeightFactory;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Originator;
+import eg.edu.alexu.csd.oop.game.cs15.game.object.Score;
 
 public class GameWorld implements World {
 
@@ -34,6 +35,7 @@ public class GameWorld implements World {
 	private LinkedList<GameObject> rightobject;
 	private CareTaker careTaker;
 	private Originator originator;
+	private Score scoreC;
     
 	public String getRandom(String[] array) {
 		int rnd = new Random().nextInt(array.length);
@@ -128,6 +130,9 @@ public class GameWorld implements World {
 					m.setSate(new StopStateLeft());
 					control.add(m);
 					rightobject.add(m);
+					originator.setStateLeft((LinkedList<GameObject>) leftobject.clone());
+					originator.setStateRight((LinkedList<GameObject>) rightobject.clone());
+					careTaker.add(originator.saveToMemento());
 					moving.remove(m);
 					new FlyWeightFactory();
 					moving.add(new Shape((int) (Math.random() * width), -1 * (int) (Math.random() * height),
@@ -142,6 +147,9 @@ public class GameWorld implements World {
 					m.setSate(new StopStateRight());
 					control.add(m);
 					leftobject.add(m);
+					originator.setStateLeft((LinkedList<GameObject>) leftobject.clone());
+					originator.setStateRight((LinkedList<GameObject>) rightobject.clone());
+					careTaker.add(originator.saveToMemento());
 					moving.remove(m);
 					new FlyWeightFactory();
 					moving.add(new Shape((int) (Math.random() * width), -1 * (int) (Math.random() * height),
