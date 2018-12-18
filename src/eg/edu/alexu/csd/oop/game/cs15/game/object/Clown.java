@@ -14,21 +14,21 @@ public class Clown implements GameObject {
 	private String path;
 	private static final int MAX_MSTATE = 1;
 	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
-	
+
 	public Clown(int x, int y, String path){
 		this.x = x;
 		this.y = y;
 		this.visible = true;
-		
+
 		// create a bunch of buffered images and place into an array, to be displayed sequentially
 				try {
 					spriteImages[0] = ImageIO.read(getClass().getResourceAsStream(path));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-		
+
 	}
-	
+
 	@Override
 	public int getX() {
 		return this.x;
@@ -53,13 +53,13 @@ public class Clown implements GameObject {
 
 	@Override
 	public int getWidth() {
-		System.out.println( "W    "+this.spriteImages[0].getHeight());
+		//System.out.println( "W    "+this.spriteImages[0].getHeight());
 		return this.spriteImages[0].getWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		System.out.println( "H    "+this.spriteImages[0].getWidth());
+		//System.out.println( "H    "+this.spriteImages[0].getWidth());
 		return this.spriteImages[0].getHeight();
 	}
 

@@ -8,6 +8,7 @@ import java.util.Random;
 import eg.edu.alexu.csd.oop.game.GameObject;
 import eg.edu.alexu.csd.oop.game.World;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Shape;
+import eg.edu.alexu.csd.oop.game.cs15.game.object.ShapeOnHand;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.StopState;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Clown;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.ConstantBackground;
@@ -20,6 +21,8 @@ public class GameWorld implements World {
 	private long startTime = System.currentTimeMillis();
 	private int width;
 	private int height;
+	private int right;
+	private int left;
 	private final List<GameObject> constant = new LinkedList<GameObject>();
 	private final List<GameObject> moving = new LinkedList<GameObject>();
 	private final List<GameObject> control = new LinkedList<GameObject>();
@@ -34,6 +37,8 @@ public class GameWorld implements World {
 	public GameWorld(int screenWidth, int screenHeight) {
 		width = screenWidth;
 		height = screenHeight;
+		right=0;
+		left=0;
 		// moving objects (enemy)
 		// for(int i=0; i<10; i++)
 		control.add(new Clown(screenWidth / 3, (int) (screenHeight * 0.75), "/moSalah.png"));
@@ -84,14 +89,19 @@ public class GameWorld implements World {
 			if ((Math.abs((m.getX() + m.getWidth() / 2) - (c.getX() + c.getWidth() / 2)) <= c.getWidth()/2)
 					&& (Math.abs((m.getY() + m.getHeight() / 2) - (c.getY() + c.getHeight() / 2)) <= c.getHeight()/2)) {
 				if ((c.getX() + c.getWidth() / 2) < (m.getX() + m.getWidth() / 2) ) {
-					m.setX(m.getX() + 50);
-					l.setSate(new StopState());
-					control.add(l);
-					
+					m.setX(getHeight());
+					//l.setSate(new StopState());
+
+					control.add(new ShapeOnHand((c.getX() + c.getWidth() / 2) + 50, c.getY()-right, m));
+					right+=20;
+
+
 				} else {
-					m.setX(m.getX() - 50);
-					l.setSate(new StopState());
-					control.add(l);
+					m.setX(getHeight());
+					//l.setSate(new StopState());
+
+					control.add(new ShapeOnHand((c.getX() + c.getWidth() / 2) -50, c.getY()-left, m));
+                    left+=20;
 				}
 			}
 
