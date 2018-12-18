@@ -34,7 +34,7 @@ public class GameWorld implements World {
 	private LinkedList<GameObject> rightobject;
 	private CareTaker careTaker;
 	private Originator originator;
-    
+
 	public String getRandom(String[] array) {
 		int rnd = new Random().nextInt(array.length);
 		return array[rnd];

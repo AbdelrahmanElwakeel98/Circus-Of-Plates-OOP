@@ -11,9 +11,10 @@ public class ImageType implements GameObject {
 	private static final int MAX_MSTATE = 1;
 	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
 	private boolean visible;
+	private String path;
 	
 	public ImageType (String path) {
-		
+		this.path = path;
 		this.visible = true;
 		// create a bunch of buffered images and place into an array, to be displayed sequentially
 		try {
@@ -68,6 +69,10 @@ public class ImageType implements GameObject {
 	@Override
 	public BufferedImage[] getSpriteImages() {
 		return this.spriteImages;
+	}
+	
+	public String getNameImage() {
+		return this.path;
 	}
 
 }

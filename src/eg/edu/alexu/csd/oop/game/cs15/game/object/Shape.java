@@ -7,10 +7,10 @@ import eg.edu.alexu.csd.oop.game.GameObject;
 public class Shape implements GameObject {
 	private int x, y;
 	private boolean visible;
-	private GameObject ballType;
+	private ImageType ballType;
 	private State s;
     
-	public Shape(int x, int y, GameObject ballType) {
+	public Shape(int x, int y, ImageType ballType) {
 		this.x = x;
 		this.y = y;
 		this.visible = true;
@@ -72,6 +72,8 @@ public class Shape implements GameObject {
 		this.s = s;
 	}
 	
-		
+	public String getName() {
+		return this.ballType.getNameImage();
+	}
 
 }
