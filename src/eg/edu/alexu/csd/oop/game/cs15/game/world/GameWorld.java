@@ -40,9 +40,10 @@ public class GameWorld implements World {
 		right = 0;
 		left = 0;
 		control.add(new Clown(screenWidth / 2, (int) (screenHeight * 0.75), "/moSalah.png"));
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 10; i++) {
 			moving.add(new Shape((int) (Math.random() * screenWidth), -1 * (int) (Math.random() * screenHeight),
-					new FlyWeightFactory().getShape(getRandom(paths))));
+					FlyWeightFactory.getShape(getRandom(paths))));
+		}
 		constant.add(new ConstantBackground(0, 0, "/st.jpg"));
 	}
 
