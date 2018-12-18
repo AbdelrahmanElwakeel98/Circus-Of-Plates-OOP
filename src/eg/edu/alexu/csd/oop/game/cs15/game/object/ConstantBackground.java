@@ -8,24 +8,25 @@ import javax.imageio.ImageIO;
 import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class ConstantBackground implements GameObject {
-	
+
 	private int x, y;
 	private boolean visible;
 	private static final int MAX_MSTATE = 1;
 	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
-	
-	public ConstantBackground(int x, int y, String path){
+
+	public ConstantBackground(int x, int y, String path) {
 		this.x = x;
 		this.y = y;
 		this.visible = true;
-		
-		// create a bunch of buffered images and place into an array, to be displayed sequentially
-				try {
-					spriteImages[0] = ImageIO.read(getClass().getResourceAsStream(path));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-		
+
+		// create a bunch of buffered images and place into an array, to be displayed
+		// sequentially
+		try {
+			spriteImages[0] = ImageIO.read(getClass().getResourceAsStream(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
@@ -36,7 +37,7 @@ public class ConstantBackground implements GameObject {
 	@Override
 	public void setX(int x) {
 		this.x = x;
-		
+
 	}
 
 	@Override
@@ -47,7 +48,7 @@ public class ConstantBackground implements GameObject {
 	@Override
 	public void setY(int y) {
 		this.y = y;
-		
+
 	}
 
 	@Override

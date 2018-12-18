@@ -10,9 +10,11 @@ import eg.edu.alexu.csd.oop.game.World;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Shape;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.StopStateLeft;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.StopStateRight;
+import eg.edu.alexu.csd.oop.game.cs15.game.object.CareTaker;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Clown;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.ConstantBackground;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.FlyWeightFactory;
+import eg.edu.alexu.csd.oop.game.cs15.game.object.Originator;
 
 public class GameWorld implements World {
 
@@ -28,7 +30,11 @@ public class GameWorld implements World {
 	private final List<GameObject> control = new LinkedList<GameObject>();
 	private String paths[] = { "/basketballBlack.png", "/basketballBlue.png", "/basketballPurple.png",
 			"/footballBlack.png", "/footballBlue.png", "/footballPurple.png" };
-
+	private LinkedList<GameObject> leftobject;
+	private LinkedList<GameObject> rightobject;
+	private CareTaker careTaker;
+	private Originator originator;
+    
 	public String getRandom(String[] array) {
 		int rnd = new Random().nextInt(array.length);
 		return array[rnd];
@@ -37,9 +43,15 @@ public class GameWorld implements World {
 	public GameWorld(int screenWidth, int screenHeight) {
 		width = screenWidth;
 		height = screenHeight;
-		right = 0;
-		left = 0;
+		careTaker =new CareTaker();
+		originator = new Originator();
+	    leftobject = new LinkedList<>();
+	    rightobject = new LinkedList<>();
+	    originator.setStateLeft(leftobject);
+	    originator.setStateRight(rightobject);
+	    careTaker.add(originator.saveToMemento());
 		control.add(new Clown(screenWidth / 2, (int) (screenHeight * 0.75), "/moSalah.png"));
+		right = left = height - control.get(0).getHeight();
 		for (int i = 0; i < 10; i++) {
 			moving.add(new Shape((int) (Math.random() * screenWidth), -1 * (int) (Math.random() * screenHeight),
 					FlyWeightFactory.getShape(getRandom(paths))));
@@ -85,35 +97,9 @@ public class GameWorld implements World {
 				m.setY(-1 * (int) (Math.random() * getHeight()));
 				m.setX((int) (Math.random() * getWidth()));
 			}
-			c.getHeight();
-			if ((Math.abs((m.getX() + m.getWidth() / 2) - (c.getX() + c.getWidth() / 2)) <= c.getWidth() / 2) && (Math
-					.abs((m.getY() + m.getHeight() / 2) - (c.getY() + c.getHeight() / 2)) <= c.getHeight() / 2)) {
-				if ((c.getX() + c.getWidth() / 2) < (m.getX() + m.getWidth() / 2)) {
-					l.setX(c.getX() + c.getWidth() - m.getWidth());
-					l.setY(c.getY() - right);
-					l.setSate(new StopStateLeft());
-					control.add(m);
-					moving.remove(m);
-					new FlyWeightFactory();
-					moving.add(new Shape((int) (Math.random() * width), -1 * (int) (Math.random() * height),
-							FlyWeightFactory.getShape(getRandom(paths))));
-					right += 20;
-
-				} else {
-					l.setX(c.getX());
-					l.setY(c.getY() - left);
-					l.setSate(new StopStateRight());
-					control.add(m);
-					moving.remove(m);
-					new FlyWeightFactory();
-					moving.add(new Shape((int) (Math.random() * width), -1 * (int) (Math.random() * height),
-							FlyWeightFactory.getShape(getRandom(paths))));
-					left += 20;
-				}
-			}
-
+			Checkintersection(l, c);
 		}
-		// System.out.println(width - (c.getX() + c.getWidth()));
+
 		for (int i = 1; i < control.size(); i++) {
 			Shape l = (Shape) control.get(i);
 
@@ -129,6 +115,42 @@ public class GameWorld implements World {
 		}
 
 		return !timeout;
+	}
+
+	void Checkintersection(Shape m, GameObject c) {
+		if ((Math.abs((m.getX() + m.getWidth() / 2) - (c.getX() + c.getWidth() / 2)) <= c.getWidth() / 2)
+				&& (Math.abs((m.getX() + m.getWidth() / 2) - (c.getX() + c.getWidth() / 2)) >= c.getWidth() / 2
+						- m.getWidth())) {
+			if ((c.getX() + c.getWidth() / 2) < (m.getX() + m.getWidth() / 2)) {
+				if (Math.abs((m.getY() + m.getHeight() / 2) - right) <= m.getHeight() / 2) {
+					m.setX(c.getX() + c.getWidth() - m.getWidth());
+					m.setY(right);
+					m.setSate(new StopStateLeft());
+					control.add(m);
+					rightobject.add(m);
+					moving.remove(m);
+					new FlyWeightFactory();
+					moving.add(new Shape((int) (Math.random() * width), -1 * (int) (Math.random() * height),
+							FlyWeightFactory.getShape(getRandom(paths))));
+					right -= m.getHeight();
+				}
+
+			} else {
+				if (Math.abs((m.getY() + m.getHeight() / 2) - left) <= m.getHeight() / 2) {
+					m.setX(c.getX());
+					m.setY(left);
+					m.setSate(new StopStateRight());
+					control.add(m);
+					leftobject.add(m);
+					moving.remove(m);
+					new FlyWeightFactory();
+					moving.add(new Shape((int) (Math.random() * width), -1 * (int) (Math.random() * height),
+							FlyWeightFactory.getShape(getRandom(paths))));
+					left -= m.getHeight();
+				}
+
+			}
+		}
 	}
 
 	@Override
