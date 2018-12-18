@@ -15,7 +15,7 @@ public class ShapeOnHand implements GameObject {
 		this.y = y;
 		this.visible = true;
 		this.ballType = ballType;
-		this.s = new MovingXState();
+		this.s = new MovingState();
 	}
 
 	@Override

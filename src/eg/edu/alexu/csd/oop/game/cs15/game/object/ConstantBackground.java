@@ -11,7 +11,6 @@ public class ConstantBackground implements GameObject {
 	
 	private int x, y;
 	private boolean visible;
-	private String path;
 	private static final int MAX_MSTATE = 1;
 	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
 	

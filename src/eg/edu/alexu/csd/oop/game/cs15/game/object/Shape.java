@@ -15,7 +15,7 @@ public class Shape implements GameObject {
 		this.y = y;
 		this.visible = true;
 		this.ballType = ballType;
-		this.s = new MovingXState();
+		this.s = new MovingState();
 	}
 
 	@Override
@@ -36,7 +36,8 @@ public class Shape implements GameObject {
 
 	@Override
 	public void setY(int y) {
-		this.y = y;
+		if (s.Statename())
+			this.y = y;
 	}
 
 	@Override
