@@ -99,6 +99,7 @@ public class GameWorld extends Observer implements World {
 	public boolean refresh() {
 		boolean timeout = System.currentTimeMillis() - startTime > MAX_TIME;
 		GameObject c = control.get(0);
+
 		for (int i = 1; i < moving.size(); i++) {
 			GameObject m = moving.get(i);
 			Shape l = (Shape) m;
