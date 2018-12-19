@@ -12,13 +12,11 @@ public class Score {
 	private int score = 0;
 	private int scoreR = 0;
 	private int scoreL = 0;
-	private LinkedList<GameObject>R;
-	private LinkedList<GameObject>L;
 	
-	public Score(LinkedList<GameObject> R,LinkedList<GameObject>L) {
-		this.R=R;
-		this.L=L;
-	}
+	
+	private LinkedList<GameObject>R;
+	private LinkedList<GameObject>L; 
+	
 	
 	public void setL(LinkedList<GameObject>L) {
 		this.L=L;
@@ -32,8 +30,6 @@ public class Score {
 	public LinkedList<GameObject> getL(){
 		return L;
 	}
-	
-	
 	public int getScore() {
 		return score;
 	}
@@ -48,11 +44,15 @@ public class Score {
 		int scoreR;
 		int index = R.size()-1;
 		scoreR = 0;
-		if(R.get(index).equals(R.get(index-1)))
-			if(R.get(index-1).equals(R.get(index-2)))
+		if (index<3) {
+		if(((Shape)R.get(index)).getName().contains("BLACK") && ((Shape)R.get(index-1)).getName().contains("BLACK") && ((Shape)R.get(index-2)).getName().contains("BLACK"))
 				scoreR++;
-		
-		if(scoreR == 3) {
+		if(((Shape)R.get(index)).getName().contains("BLUE") && ((Shape)R.get(index-1)).getName().contains("BLUE") && ((Shape)R.get(index-2)).getName().contains("BLUE"))
+			scoreR++;
+		if(((Shape)R.get(index)).getName().contains("PURPLE") && ((Shape)R.get(index-1)).getName().contains("PURPLE") && ((Shape)R.get(index-2)).getName().contains("PURPLE"))
+			scoreR++;
+		}
+		if(scoreR == 1) {
 			this.scoreR = scoreR;
 			score++;
 			notifyAllObservers();
@@ -62,11 +62,15 @@ public class Score {
 		int scoreL;
 		int index = L.size()-1;
 		scoreL = 0;
-		if(L.get(index).equals(L.get(index-1)))
-			if(L.get(index-1).equals(L.get(index-2)))
+		if (index<3) {
+			if(((Shape)L.get(index)).getName().contains("BLACK") && ((Shape)L.get(index-1)).getName().contains("BLACK") && ((Shape)L.get(index-2)).getName().contains("BLACK"))
+					scoreL++;
+			if(((Shape)L.get(index)).getName().contains("BLUE") && ((Shape)L.get(index-1)).getName().contains("BLUE") && ((Shape)L.get(index-2)).getName().contains("BLUE"))
 				scoreL++;
-		
-		if(scoreL == 3) {
+			if(((Shape)L.get(index)).getName().contains("PURPLE") && ((Shape)L.get(index-1)).getName().contains("PURPLE") && ((Shape)L.get(index-2)).getName().contains("PURPLE"))
+				scoreL++;
+			}
+		if(scoreL == 1) {
 			this.scoreL = scoreL;
 			score++;
 			notifyAllObservers();

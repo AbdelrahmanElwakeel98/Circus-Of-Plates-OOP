@@ -14,10 +14,11 @@ import eg.edu.alexu.csd.oop.game.cs15.game.object.CareTaker;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Clown;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.ConstantBackground;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.FlyWeightFactory;
+import eg.edu.alexu.csd.oop.game.cs15.game.object.Observer;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Originator;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Score;
 
-public class GameWorld implements World {
+public class GameWorld extends Observer implements World {
 
 	private static int MAX_TIME = 1 * 60 * 1000; // 1 minute
 	private int score = 0;
@@ -35,17 +36,13 @@ public class GameWorld implements World {
 	private LinkedList<GameObject> rightobject;
 	private CareTaker careTaker;
 	private Originator originator;
-
-	private Score scoreC = new Score(leftobject, rightobject);
-	
-
 	
 	public String getRandom(String[] array) {
 		int rnd = new Random().nextInt(array.length);
 		return array[rnd];
 	}
 
-	public GameWorld(int screenWidth, int screenHeight) {
+	public GameWorld(int screenWidth, int screenHeight, Score scoreC) {
 		width = screenWidth;
 		height = screenHeight;
 		careTaker =new CareTaker();
@@ -62,8 +59,12 @@ public class GameWorld implements World {
 					FlyWeightFactory.getShape(getRandom(paths))));
 		}
 		constant.add(new ConstantBackground(0, 0, "/st.jpg"));
+		this.scoreC=scoreC;
+		scoreC.attach(this);
+		scoreC.setR(rightobject);
+		scoreC.setL(leftobject);
 	}
-
+	
 	@Override
 	public List<GameObject> getConstantObjects() {
 		return this.constant;
@@ -163,11 +164,6 @@ public class GameWorld implements World {
 			}
 		}
 		
-		scoreC.setL(leftobject);
-		scoreC.setR(rightobject);
-		scoreC.setScoreL();
-		scoreC.setScoreR();
-		score = scoreC.getScore();
 	}
 
 	@Override
@@ -186,6 +182,12 @@ public class GameWorld implements World {
 	public int getControlSpeed() {
 		// TODO Auto-generated method stub
 		return 10;
+	}
+
+	@Override
+	public void update() {
+		
+		
 	}
 
 }

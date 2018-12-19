@@ -36,10 +36,11 @@ public class Main {
 		menu.add(resumeMenuItem);
 		menuBar.add(menu);
 		menuBar.add(mode);
-		final GameController gameController = GameEngine.start("The Egyption King", new GameWorld(700,800), menuBar, Color.BLACK);
+		Score scoreC = new Score();
+		final GameController gameController = GameEngine.start("The Egyption King", new GameWorld(700,800,scoreC), menuBar, Color.BLACK);
 		newMenuItem.addActionListener(new ActionListener() {
 		@Override public void actionPerformed(ActionEvent e) {
-				gameController.changeWorld(new GameWorld(785,800));
+				gameController.changeWorld(new GameWorld(785,800,scoreC));
 			}
 		});
 		pauseMenuItem.addActionListener(new ActionListener() {
