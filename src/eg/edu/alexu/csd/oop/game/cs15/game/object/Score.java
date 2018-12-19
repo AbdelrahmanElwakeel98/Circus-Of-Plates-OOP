@@ -7,17 +7,17 @@ import java.util.List;
 import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class Score {
-	
+
 	private List<Observer> observers = new ArrayList<Observer>();
 	private int score = 0;
 	private int scoreR = 0;
 	private int scoreL = 0;
-	
-	
+
+
 	private LinkedList<GameObject>R;
-	private LinkedList<GameObject>L; 
-	
-	
+	private LinkedList<GameObject>L;
+
+
 	public void setL(LinkedList<GameObject>L) {
 		this.L=L;
 	}
@@ -39,36 +39,45 @@ public class Score {
 	public int getScoreL() {
 		return scoreL;
 	}
-	
+
 	public void setScoreR() {
 		int scoreR;
 		int index = R.size()-1;
 		scoreR = 0;
-		if (index<3) {
-		if(((Shape)R.get(index)).getName().contains("BLACK") && ((Shape)R.get(index-1)).getName().contains("BLACK") && ((Shape)R.get(index-2)).getName().contains("BLACK"))
-				scoreR++;
-		if(((Shape)R.get(index)).getName().contains("BLUE") && ((Shape)R.get(index-1)).getName().contains("BLUE") && ((Shape)R.get(index-2)).getName().contains("BLUE"))
+		if (index>=2) {
+			System.out.println("lkllk");
+		if(((Shape)R.get(index)).getName().contains("Black") && ((Shape)R.get(index-1)).getName().contains("Black") && ((Shape)R.get(index-2)).getName().contains("Black")) {
+			System.out.println("balck");
+			scoreR++;}
+		if(((Shape)R.get(index)).getName().contains("Blue") && ((Shape)R.get(index-1)).getName().contains("Blue") && ((Shape)R.get(index-2)).getName().contains("Blue")) {
+			System.out.println("blue");
 			scoreR++;
-		if(((Shape)R.get(index)).getName().contains("PURPLE") && ((Shape)R.get(index-1)).getName().contains("PURPLE") && ((Shape)R.get(index-2)).getName().contains("PURPLE"))
+		}
+
+		if(((Shape)R.get(index)).getName().contains("Purple") && ((Shape)R.get(index-1)).getName().contains("Purple") && ((Shape)R.get(index-2)).getName().contains("Purple")) {
+			System.out.println("purple");
 			scoreR++;
+		}
+
 		}
 		if(scoreR == 1) {
 			this.scoreR = scoreR;
 			score++;
 			notifyAllObserversR();
 		}
-	}
-	public void setScoreL() {
 		int scoreL;
-		int index = L.size()-1;
+		int indexL = L.size()-1;
 		scoreL = 0;
-		if (index<3) {
-			if(((Shape)L.get(index)).getName().contains("BLACK") && ((Shape)L.get(index-1)).getName().contains("BLACK") && ((Shape)L.get(index-2)).getName().contains("BLACK"))
-					scoreL++;
-			if(((Shape)L.get(index)).getName().contains("BLUE") && ((Shape)L.get(index-1)).getName().contains("BLUE") && ((Shape)L.get(index-2)).getName().contains("BLUE"))
-				scoreL++;
-			if(((Shape)L.get(index)).getName().contains("PURPLE") && ((Shape)L.get(index-1)).getName().contains("PURPLE") && ((Shape)L.get(index-2)).getName().contains("PURPLE"))
-				scoreL++;
+		if (indexL>=2) {
+			if(((Shape)L.get(indexL)).getName().contains("Black") && ((Shape)L.get(indexL-1)).getName().contains("Black") && ((Shape)L.get(indexL-2)).getName().contains("Black")) {
+				System.out.println("black");
+				scoreL++;}
+			if(((Shape)L.get(indexL)).getName().contains("Blue") && ((Shape)L.get(indexL-1)).getName().contains("Blue") && ((Shape)L.get(indexL-2)).getName().contains("Blue")) {
+				System.out.println("blue");
+				scoreL++;}
+			if(((Shape)L.get(indexL)).getName().contains("Purple") && ((Shape)L.get(indexL-1)).getName().contains("Purple") && ((Shape)L.get(indexL-2)).getName().contains("Purple")) {
+				System.out.println("purple");
+				scoreL++;}
 			}
 		if(scoreL == 1) {
 			this.scoreL = scoreL;
@@ -76,11 +85,30 @@ public class Score {
 			notifyAllObserversL();
 		}
 	}
-	
+/*	public void setScoreL() {
+		int scoreL;
+		int index = L.size()-1;
+		scoreL = 0;
+		if (index>=2) {
+			if(((Shape)L.get(index)).getName().contains("Black") && ((Shape)L.get(index-1)).getName().contains("Black") && ((Shape)L.get(index-2)).getName().contains("Black"))
+				System.out.println("hhh");
+				scoreL++;
+			if(((Shape)L.get(index)).getName().contains("Blue") && ((Shape)L.get(index-1)).getName().contains("Blue") && ((Shape)L.get(index-2)).getName().contains("Blue"))
+				scoreL++;
+			if(((Shape)L.get(index)).getName().contains("Purple") && ((Shape)L.get(index-1)).getName().contains("Purple") && ((Shape)L.get(index-2)).getName().contains("Purple"))
+				scoreL++;
+			}
+		if(scoreL == 1) {
+			this.scoreL = scoreL;
+			score++;
+			notifyAllObserversL();
+		}
+	}*/
+
 	public void attach(Observer observer) {
 		observers.add(observer);
 	}
-	
+
 	public void notifyAllObserversR(){
 	      for (Observer observer : observers) {
 	         observer.updateR();
@@ -90,7 +118,7 @@ public class Score {
 		 for (Observer observer : observers) {
 	         observer.updateL();
 	      }
-		
+
 	}
 
 }

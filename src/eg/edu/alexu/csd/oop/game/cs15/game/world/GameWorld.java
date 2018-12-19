@@ -10,8 +10,11 @@ import eg.edu.alexu.csd.oop.game.World;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Shape;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.StopStateLeft;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.StopStateRight;
+import eg.edu.alexu.csd.oop.game.cs15.game.object.AddLeftCommand;
+import eg.edu.alexu.csd.oop.game.cs15.game.object.AddRightCommand;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.CareTaker;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Clown;
+import eg.edu.alexu.csd.oop.game.cs15.game.object.CommandManager;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.ConstantBackground;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.FlyWeightFactory;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Observer;
@@ -26,6 +29,7 @@ public class GameWorld extends Observer implements World {
 	private int width;
 	private int height;
 	private int right;
+	private CommandManager cm;
 	private int left;
 	private final List<GameObject> constant = new LinkedList<GameObject>();
 	private final List<GameObject> moving = new LinkedList<GameObject>();
@@ -36,7 +40,7 @@ public class GameWorld extends Observer implements World {
 	private LinkedList<GameObject> rightobject;
 	private CareTaker careTaker;
 	private Originator originator;
-	
+
 	public String getRandom(String[] array) {
 		int rnd = new Random().nextInt(array.length);
 		return array[rnd];
@@ -63,8 +67,9 @@ public class GameWorld extends Observer implements World {
 		scoreC.attach(this);
 		scoreC.setR(rightobject);
 		scoreC.setL(leftobject);
+		cm = new CommandManager(this.scoreC);
 	}
-	
+
 	@Override
 	public List<GameObject> getConstantObjects() {
 		return this.constant;
@@ -119,7 +124,7 @@ public class GameWorld extends Observer implements World {
 				}
 			}
 		}
-		
+
 		return !timeout;
 	}
 
@@ -133,7 +138,9 @@ public class GameWorld extends Observer implements World {
 					m.setY(right);
 					m.setSate(new StopStateLeft());
 					control.add(m);
-					rightobject.add(m);
+					cm.executeRightCommand(new AddRightCommand(rightobject, m));
+					//rightobject.add(m);
+					this.scoreC.setScoreR();
 					originator.setStateLeft((LinkedList<GameObject>) leftobject.clone());
 					originator.setStateRight((LinkedList<GameObject>) rightobject.clone());
 					careTaker.add(originator.saveToMemento());
@@ -150,7 +157,9 @@ public class GameWorld extends Observer implements World {
 					m.setY(left);
 					m.setSate(new StopStateRight());
 					control.add(m);
-					leftobject.add(m);
+					cm.executeLeftCommand(new AddLeftCommand(leftobject, m));
+					//leftobject.add(m);
+					this.scoreC.setScoreR();
 					originator.setStateLeft((LinkedList<GameObject>) leftobject.clone());
 					originator.setStateRight((LinkedList<GameObject>) rightobject.clone());
 					careTaker.add(originator.saveToMemento());
@@ -163,7 +172,7 @@ public class GameWorld extends Observer implements World {
 
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -186,14 +195,13 @@ public class GameWorld extends Observer implements World {
 
 	@Override
 	public void updateR() {
-		
-		
+
+		this.score++;
 	}
 
 	@Override
 	public void updateL() {
-		// TODO Auto-generated method stub
-		
+		this.score++;
 	}
 
 

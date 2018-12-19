@@ -3,13 +3,16 @@ package eg.edu.alexu.csd.oop.game.cs15.game.object;
 import java.util.Stack;
 
 
-public class CommandManager {
+public class CommandManager extends Observer {
 
 
 	private Stack<Command> undoRight = new Stack<Command>();
 	private Stack<Command> undoLeft = new Stack<Command>();
 
-	 public CommandManager() {}
+	 public CommandManager(Score scoreC) {
+		 this.scoreC=scoreC;
+		 scoreC.attach(this);
+	 }
 
 	 public void executeRightCommand(Command c) {
 		 c.execute();
@@ -30,4 +33,20 @@ public class CommandManager {
 		 Command c = undoLeft.pop();
 		 c.undo();
 	 }
+
+	@Override
+	public void updateR() {
+		undoRightCommand();
+		undoRightCommand();
+		undoRightCommand();
+	}
+
+	@Override
+	public void updateL() {
+		undoLeftCommand();
+		undoLeftCommand();
+		undoLeftCommand();
+	}
+
+	
 }
