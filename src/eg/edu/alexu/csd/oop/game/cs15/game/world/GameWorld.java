@@ -185,9 +185,16 @@ public class GameWorld extends Observer implements World {
 	}
 
 	@Override
-	public void update() {
+	public void updateR() {
 		
 		
 	}
+
+	@Override
+	public void updateL() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

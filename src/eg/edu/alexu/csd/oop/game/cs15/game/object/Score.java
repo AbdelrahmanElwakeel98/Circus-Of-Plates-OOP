@@ -55,7 +55,7 @@ public class Score {
 		if(scoreR == 1) {
 			this.scoreR = scoreR;
 			score++;
-			notifyAllObservers();
+			notifyAllObserversR();
 		}
 	}
 	public void setScoreL() {
@@ -73,7 +73,7 @@ public class Score {
 		if(scoreL == 1) {
 			this.scoreL = scoreL;
 			score++;
-			notifyAllObservers();
+			notifyAllObserversL();
 		}
 	}
 	
@@ -81,10 +81,16 @@ public class Score {
 		observers.add(observer);
 	}
 	
-	public void notifyAllObservers(){
+	public void notifyAllObserversR(){
 	      for (Observer observer : observers) {
-	         observer.update();
+	         observer.updateR();
 	      }
+	}
+	private void notifyAllObserversL() {
+		 for (Observer observer : observers) {
+	         observer.updateL();
+	      }
+		
 	}
 
 }
