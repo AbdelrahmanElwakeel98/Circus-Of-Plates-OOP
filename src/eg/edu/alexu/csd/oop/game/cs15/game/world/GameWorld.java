@@ -36,8 +36,10 @@ public class GameWorld implements World {
 	private CareTaker careTaker;
 	private Originator originator;
 
-	private Score scoreC;
-    
+	private Score scoreC = new Score(leftobject, rightobject);
+	
+
+	
 	public String getRandom(String[] array) {
 		int rnd = new Random().nextInt(array.length);
 		return array[rnd];
@@ -116,7 +118,7 @@ public class GameWorld implements World {
 				}
 			}
 		}
-
+		
 		return !timeout;
 	}
 
@@ -160,6 +162,12 @@ public class GameWorld implements World {
 
 			}
 		}
+		
+		scoreC.setL(leftobject);
+		scoreC.setR(rightobject);
+		scoreC.setScoreL();
+		scoreC.setScoreR();
+		score = scoreC.getScore();
 	}
 
 	@Override

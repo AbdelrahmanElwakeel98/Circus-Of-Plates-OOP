@@ -9,9 +9,9 @@ import eg.edu.alexu.csd.oop.game.GameObject;
 public class Score {
 	
 	private List<Observer> observers = new ArrayList<Observer>();
-	private int score;
-	private int scoreR;
-	private int scoreL;
+	private int score = 0;
+	private int scoreR = 0;
+	private int scoreL = 0;
 	private LinkedList<GameObject>R;
 	private LinkedList<GameObject>L;
 	
@@ -44,22 +44,33 @@ public class Score {
 		return scoreL;
 	}
 	
-	public void setScore(int score) {
-		this.score = score;
-		notifyAllObservers();
-	}
-	public void setScoreR(int scoreR) {
+	public void setScoreR() {
+		int scoreR;
 		int index = R.size()-1;
+		scoreR = 0;
 		if(R.get(index).equals(R.get(index-1)))
 			if(R.get(index-1).equals(R.get(index-2)))
 				scoreR++;
-		this.scoreR = scoreR;
-		if(scoreR == 3)
-		notifyAllObservers();
+		
+		if(scoreR == 3) {
+			this.scoreR = scoreR;
+			score++;
+			notifyAllObservers();
+		}
 	}
-	public void setScoreL(int scoreL) {
-		if(scoreR == 3)
-		this.scoreL = scoreL;
+	public void setScoreL() {
+		int scoreL;
+		int index = L.size()-1;
+		scoreL = 0;
+		if(L.get(index).equals(L.get(index-1)))
+			if(L.get(index-1).equals(L.get(index-2)))
+				scoreL++;
+		
+		if(scoreL == 3) {
+			this.scoreL = scoreL;
+			score++;
+			notifyAllObservers();
+		}
 	}
 	
 	public void attach(Observer observer) {
