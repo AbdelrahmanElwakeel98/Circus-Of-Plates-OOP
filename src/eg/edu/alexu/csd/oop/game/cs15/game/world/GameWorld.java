@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 import java.util.List;
 import java.util.Random;
-
+import eg.edu.alexu.csd.oop.game.cs15.game.object.Container;
 import eg.edu.alexu.csd.oop.game.GameObject;
 import eg.edu.alexu.csd.oop.game.World;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Shape;
@@ -17,6 +17,8 @@ import eg.edu.alexu.csd.oop.game.cs15.game.object.Clown;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.CommandManager;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.ConstantBackground;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.FlyWeightFactory;
+import eg.edu.alexu.csd.oop.game.cs15.game.object.GameObjectContainer;
+import eg.edu.alexu.csd.oop.game.cs15.game.object.Iterator;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Observer;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Originator;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Score;
@@ -31,9 +33,9 @@ public class GameWorld extends Observer implements World {
 	private int right;
 	private CommandManager cm;
 	private int left;
-	private final List<GameObject> constant = new LinkedList<GameObject>();
-	private final List<GameObject> moving = new LinkedList<GameObject>();
-	private final List<GameObject> control = new LinkedList<GameObject>();
+	private final LinkedList<GameObject> constant = new LinkedList<GameObject>();
+	private final LinkedList<GameObject> moving = new LinkedList<GameObject>();
+	private final LinkedList<GameObject> control = new LinkedList<GameObject>();
 	private String paths[] = { "/basketballBlack.png", "/basketballBlue.png", "/basketballPurple.png",
 			"/footballBlack.png", "/footballBlue.png", "/footballPurple.png" };
 	private LinkedList<GameObject> leftobject;
@@ -99,9 +101,16 @@ public class GameWorld extends Observer implements World {
 	public boolean refresh() {
 		boolean timeout = System.currentTimeMillis() - startTime > MAX_TIME;
 		GameObject c = control.get(0);
-
-		for (int i = 1; i < moving.size(); i++) {
-			GameObject m = moving.get(i);
+		right = left = height - control.get(0).getHeight();
+		if (rightobject.size() > 0) {
+			right -= rightobject.size() * rightobject.get(0).getHeight();
+		}
+		if (leftobject.size() > 0) {
+			left -= leftobject.size() * leftobject.get(0).getHeight();
+		}
+        Container mContainer = new GameObjectContainer(moving);
+		for (Iterator iter=mContainer.getIterator();iter.hasNext();) {
+			GameObject m = (GameObject) iter.next();
 			Shape l = (Shape) m;
 			l.move(1);
 			if (m.getY() == getHeight()) {
@@ -111,9 +120,10 @@ public class GameWorld extends Observer implements World {
 			}
 			Checkintersection(l, c);
 		}
-
-		for (int i = 1; i < control.size(); i++) {
-			Shape l = (Shape) control.get(i);
+        Container cContainer = new GameObjectContainer(control);
+        Iterator iter=cContainer.getIterator();
+		for (iter.next();iter.hasNext();) {
+			Shape l = (Shape) iter.next();
 
 			if (c.getX() == 0) {
 				if (l.getX() != 0) {
@@ -138,8 +148,8 @@ public class GameWorld extends Observer implements World {
 					m.setX(c.getX() + c.getWidth() - m.getWidth());
 					m.setY(right);
 					m.setSate(new StopStateLeft());
-					control.add(m);
-					cm.executeRightCommand(new AddRightCommand(rightobject, m));
+					//control.add(m);
+					cm.executeRightCommand(new AddRightCommand(rightobject, m, control));
 					//rightobject.add(m);
 					this.scoreC.setScoreR();
 					originator.setStateLeft((LinkedList<GameObject>) leftobject.clone());
@@ -149,7 +159,6 @@ public class GameWorld extends Observer implements World {
 					new FlyWeightFactory();
 					moving.add(new Shape((int) (Math.random() * width), -1 * (int) (Math.random() * height),
 							FlyWeightFactory.getShape(getRandom(paths))));
-					right -= m.getHeight();
 				}
 
 			} else {
@@ -157,8 +166,8 @@ public class GameWorld extends Observer implements World {
 					m.setX(c.getX());
 					m.setY(left);
 					m.setSate(new StopStateRight());
-					control.add(m);
-					cm.executeLeftCommand(new AddLeftCommand(leftobject, m));
+					//control.add(m);
+					cm.executeLeftCommand(new AddLeftCommand(leftobject, m, control));
 					//leftobject.add(m);
 					this.scoreC.setScoreR();
 					originator.setStateLeft((LinkedList<GameObject>) leftobject.clone());
@@ -168,7 +177,6 @@ public class GameWorld extends Observer implements World {
 					new FlyWeightFactory();
 					moving.add(new Shape((int) (Math.random() * width), -1 * (int) (Math.random() * height),
 							FlyWeightFactory.getShape(getRandom(paths))));
-					left -= m.getHeight();
 				}
 
 			}

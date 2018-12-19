@@ -6,21 +6,24 @@ import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class AddLeftCommand implements Command {
 
-	private LinkedList left;
+	private LinkedList left, control;
 	private GameObject gameObject;
 
-	public AddLeftCommand (LinkedList left, GameObject gameObject) {
+	public AddLeftCommand (LinkedList left, GameObject gameObject, LinkedList control) {
 		this.gameObject = gameObject;
 		this.left = left;
+		this.control = control;
 	}
 
 	@Override
 	public void execute() {
 		this.left.add(this.gameObject);
+		this.control.add(this.gameObject);
 	}
 
 	@Override
 	public void undo() {
+		this.control.remove(this.left.get(this.left.size() - 1));
 		this.left.remove(this.left.size() - 1);
 	}
 
