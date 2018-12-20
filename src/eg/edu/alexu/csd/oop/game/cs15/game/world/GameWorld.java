@@ -26,7 +26,7 @@ import eg.edu.alexu.csd.oop.game.cs15.game.object.Score;
 
 public class GameWorld extends Observer implements World {
 
-	private static int MAX_TIME = 1 * 20 * 1000; // 1 minute
+	private static int MAX_TIME = 1 * 60 * 1000; // 1 minute
 	private int score = 0;
 	private long startTime = System.currentTimeMillis();
 	private int width;
@@ -132,10 +132,12 @@ public class GameWorld extends Observer implements World {
 
 			if (c.getX() == 0) {
 				if (l.getX() != 0) {
+
 					l.move(c.getX() + c.getWidth());
 				}
 			} else if (c.getX() + c.getWidth() - 12 == width) {
-				if (l.getX() - c.getX() < l.getWidth()) {
+				if (l.getX() - c.getX() < c.getWidth() / 2) {
+
 					l.move(c.getX());
 				}
 			}

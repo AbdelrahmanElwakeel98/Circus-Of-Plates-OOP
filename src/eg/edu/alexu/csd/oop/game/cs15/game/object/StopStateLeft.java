@@ -5,6 +5,7 @@ public class StopStateLeft implements State{
 	@Override
 	public void move(Shape Myshape, int k) {
 		// TODO Auto-generated method stub
+		
 		Myshape.setX( k - Myshape.getWidth() );
 	}
 

@@ -12,12 +12,15 @@ import java.util.jar.JarFile;
 
 import javax.imageio.ImageIO;
 
+import org.apache.log4j.Logger;
+
 import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class DynamicJarReader {
 	private String pathToJar;
 	private Class<? extends GameObject> ShapeClass;
 	private HashMap<String, BufferedImage> classResources;
+	private Logger log = JLogger.getLogInstance();
 
 	public DynamicJarReader(String path) {
 		pathToJar = path;
@@ -29,6 +32,7 @@ public class DynamicJarReader {
 	@SuppressWarnings("unchecked")
 	private void readClass() {
 		try {
+			log.info("ReadClass");
 			JarFile jar = new JarFile(pathToJar);
 			Enumeration<JarEntry> e = jar.entries();
 			URL[] urls = { new URL("jar:file:" + pathToJar + "!/") };
@@ -52,9 +56,9 @@ public class DynamicJarReader {
 			}
 			jar.close();
 		} catch (IOException e) {
-			System.out.println("Jar not Found");
+			log.error("Jar not Found");
 		} catch (ClassNotFoundException e1) {
-			System.out.println("There is no such class");
+			log.error("There is no such class");
 		}
 	}
 
@@ -62,7 +66,7 @@ public class DynamicJarReader {
 		try {
 			return classResources.get(name);
 		} catch (NullPointerException e) {
-			System.out.println("no image found");
+			log.error("no image found");
 			throw new NullPointerException();
 		}
 	}

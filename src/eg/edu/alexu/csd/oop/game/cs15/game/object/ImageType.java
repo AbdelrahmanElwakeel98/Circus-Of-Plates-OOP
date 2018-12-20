@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.apache.log4j.Logger;
+
 import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class ImageType implements GameObject {
@@ -12,17 +14,20 @@ public class ImageType implements GameObject {
 	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
 	private boolean visible;
 	private String path;
-	
-	public ImageType (String path) {
+	private Logger log = JLogger.getLogInstance();
+
+	public ImageType(String path) {
 		this.path = path;
 		this.visible = true;
-		// create a bunch of buffered images and place into an array, to be displayed sequentially
+		// create a bunch of buffered images and place into an array, to be displayed
+		// sequentially
 		try {
 			spriteImages[0] = ImageIO.read(getClass().getResourceAsStream(path));
 		} catch (IOException e) {
+			log.warn("Can not get the image");
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -34,7 +39,7 @@ public class ImageType implements GameObject {
 	@Override
 	public void setX(int x) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -46,7 +51,7 @@ public class ImageType implements GameObject {
 	@Override
 	public void setY(int y) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -70,7 +75,7 @@ public class ImageType implements GameObject {
 	public BufferedImage[] getSpriteImages() {
 		return this.spriteImages;
 	}
-	
+
 	public String getNameImage() {
 		return this.path;
 	}
