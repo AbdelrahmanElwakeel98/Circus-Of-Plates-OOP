@@ -1,0 +1,73 @@
+package eg.edu.alexu.csd.oop.game.cs15.game.object;
+
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+
+import javax.imageio.ImageIO;
+
+import eg.edu.alexu.csd.oop.game.GameObject;
+
+public class DynamicJarReader {
+	private String pathToJar;
+	private Class<? extends GameObject> ShapeClass;
+	private HashMap<String, BufferedImage> classResources;
+
+	public DynamicJarReader(String path) {
+		pathToJar = path;
+		ShapeClass = null;
+		classResources = new HashMap<>();
+		readClass();
+	}
+
+	@SuppressWarnings("unchecked")
+	private void readClass() {
+		try {
+			JarFile jar = new JarFile(pathToJar);
+			Enumeration<JarEntry> e = jar.entries();
+			URL[] urls = { new URL("jar:file:" + pathToJar + "!/") };
+			URLClassLoader cl = URLClassLoader.newInstance(urls);
+			while (e.hasMoreElements()) {
+				JarEntry je = e.nextElement();
+				if (je.getName().contains(".class")) {
+					String className = je.getName().substring(0, je.getName().length() - 6);
+					className = className.replace('/', '.');
+					ShapeClass = (Class<? extends GameObject>) cl.loadClass(className);
+				} else if (je.getName().contains(".png") || je.getName().contains(".jpg")) {
+					classResources.put(je.getName(), ImageIO.read(ShapeClass.getResource("/" + je.getName())));
+				}
+			}
+			jar.close();
+		} catch (IOException e) {
+			System.out.println("Jar not Found");
+		} catch (ClassNotFoundException e1) {
+			System.out.println("There is no such class");
+		}
+	}
+
+	public BufferedImage getImage(String name) {
+		try {
+			return classResources.get(name);
+		} catch (NullPointerException e) {
+			System.out.println("no image found");
+			throw new NullPointerException();
+		}
+	}
+
+	public String[] getImagesName() {
+		Set<String> keys = classResources.keySet();
+		Object[] s = keys.toArray();
+		String[] imagesName = new String[s.length];
+		for (int i = 0; i < s.length; i++) {
+			imagesName[i] = (String) s[i];
+		}
+		return imagesName;
+
+	}
+}
