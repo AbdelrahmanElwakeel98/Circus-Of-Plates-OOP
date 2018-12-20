@@ -9,7 +9,7 @@ public class Shape implements GameObject {
 	private boolean visible;
 	private ImageType ballType;
 	private State s;
-    
+
 	public Shape(int x, int y, ImageType ballType) {
 		this.x = x;
 		this.y = y;
@@ -71,7 +71,7 @@ public class Shape implements GameObject {
 	public void setSate(State s) {
 		this.s = s;
 	}
-	
+
 	public String getName() {
 		return this.ballType.getNameImage();
 	}

@@ -25,7 +25,7 @@ import eg.edu.alexu.csd.oop.game.cs15.game.object.Score;
 
 public class GameWorld extends Observer implements World {
 
-	private static int MAX_TIME = 1 * 60 * 1000; // 1 minute
+	private static int MAX_TIME = 1 * 20 * 1000; // 1 minute
 	private int score = 0;
 	private long startTime = System.currentTimeMillis();
 	private int width;
@@ -35,7 +35,7 @@ public class GameWorld extends Observer implements World {
 	private int left;
 	private final LinkedList<GameObject> constant = new LinkedList<GameObject>();
 	private final LinkedList<GameObject> moving = new LinkedList<GameObject>();
-	private final LinkedList<GameObject> control = new LinkedList<GameObject>();
+	private LinkedList<GameObject> control = new LinkedList<GameObject>();
 	private String paths[] = { "/basketballBlack.png", "/basketballBlue.png", "/basketballPurple.png",
 			"/footballBlack.png", "/footballBlue.png", "/footballPurple.png" };
 	private LinkedList<GameObject> leftobject;
@@ -51,13 +51,10 @@ public class GameWorld extends Observer implements World {
 	public GameWorld(int screenWidth, int screenHeight, Score scoreC) {
 		width = screenWidth;
 		height = screenHeight;
-		careTaker =new CareTaker();
-		originator = new Originator();
-	    leftobject = new LinkedList<>();
-	    rightobject = new LinkedList<>();
-	    originator.setStateLeft(leftobject);
-	    originator.setStateRight(rightobject);
-	    careTaker.add(originator.saveToMemento());
+
+		leftobject = new LinkedList<>();
+		rightobject = new LinkedList<>();
+
 		control.add(new Clown(screenWidth / 2, (int) (screenHeight * 0.75), "/moSalah.png"));
 		right = left = height - control.get(0).getHeight();
 		for (int i = 0; i < 10; i++) {
@@ -65,11 +62,13 @@ public class GameWorld extends Observer implements World {
 					FlyWeightFactory.getShape(getRandom(paths))));
 		}
 		constant.add(new ConstantBackground(0, 0, "/st.jpg"));
-		this.scoreC=scoreC;
+		this.scoreC = scoreC;
 		scoreC.attach(this);
 		scoreC.setR(rightobject);
 		scoreC.setL(leftobject);
+
 		cm = new CommandManager(this.scoreC);
+		careTaker = new CareTaker(this.scoreC);
 	}
 
 	@Override
@@ -108,8 +107,8 @@ public class GameWorld extends Observer implements World {
 		if (leftobject.size() > 0) {
 			left -= leftobject.size() * leftobject.get(0).getHeight();
 		}
-        Container mContainer = new GameObjectContainer(moving);
-		for (Iterator iter=mContainer.getIterator();iter.hasNext();) {
+		Container mContainer = new GameObjectContainer(moving);
+		for (Iterator iter = mContainer.getIterator(); iter.hasNext();) {
 			GameObject m = (GameObject) iter.next();
 			Shape l = (Shape) m;
 			l.move(1);
@@ -120,9 +119,9 @@ public class GameWorld extends Observer implements World {
 			}
 			Checkintersection(l, c);
 		}
-        Container cContainer = new GameObjectContainer(control);
-        Iterator iter=cContainer.getIterator();
-		for (iter.next();iter.hasNext();) {
+		Container cContainer = new GameObjectContainer(control);
+		Iterator iter = cContainer.getIterator();
+		for (iter.next(); iter.hasNext();) {
 			Shape l = (Shape) iter.next();
 
 			if (c.getX() == 0) {
@@ -135,7 +134,22 @@ public class GameWorld extends Observer implements World {
 				}
 			}
 		}
-
+		if (timeout == true) {
+			if (score > 0) {
+				rightobject = careTaker.get(score - 1).getStateRight();
+				leftobject = careTaker.get(score - 1).getStateLeft();
+				scoreC.setL(leftobject);
+				scoreC.setR(rightobject);
+				control = new LinkedList<>();
+				//c.setX(careTaker.getUpdatedX());
+				control=new LinkedList<>();
+				control.add(c);
+				control.addAll(rightobject);
+				control.addAll(leftobject);
+				startTime = System.currentTimeMillis();
+				timeout = false;
+			}
+		}
 		return !timeout;
 	}
 
@@ -145,38 +159,33 @@ public class GameWorld extends Observer implements World {
 						- m.getWidth())) {
 			if ((c.getX() + c.getWidth() / 2) < (m.getX() + m.getWidth() / 2)) {
 				if (Math.abs((m.getY() + m.getHeight() / 2) - right) <= m.getHeight() / 2) {
+					System.out.println("right "+right);
 					m.setX(c.getX() + c.getWidth() - m.getWidth());
 					m.setY(right);
 					m.setSate(new StopStateLeft());
-					//control.add(m);
 					cm.executeRightCommand(new AddRightCommand(rightobject, m, control));
-					//rightobject.add(m);
 					this.scoreC.setScoreR();
-					originator.setStateLeft((LinkedList<GameObject>) leftobject.clone());
-					originator.setStateRight((LinkedList<GameObject>) rightobject.clone());
-					careTaker.add(originator.saveToMemento());
+
 					moving.remove(m);
 					new FlyWeightFactory();
 					moving.add(new Shape((int) (Math.random() * width), -1 * (int) (Math.random() * height),
 							FlyWeightFactory.getShape(getRandom(paths))));
+					//careTaker.setOrdinaryX(c.getX());
 				}
 
 			} else {
 				if (Math.abs((m.getY() + m.getHeight() / 2) - left) <= m.getHeight() / 2) {
+					System.out.println("left "+left);
 					m.setX(c.getX());
 					m.setY(left);
 					m.setSate(new StopStateRight());
-					//control.add(m);
 					cm.executeLeftCommand(new AddLeftCommand(leftobject, m, control));
-					//leftobject.add(m);
 					this.scoreC.setScoreR();
-					originator.setStateLeft((LinkedList<GameObject>) leftobject.clone());
-					originator.setStateRight((LinkedList<GameObject>) rightobject.clone());
-					careTaker.add(originator.saveToMemento());
 					moving.remove(m);
 					new FlyWeightFactory();
 					moving.add(new Shape((int) (Math.random() * width), -1 * (int) (Math.random() * height),
 							FlyWeightFactory.getShape(getRandom(paths))));
+					//careTaker.setOrdinaryX(c.getX());
 				}
 
 			}
@@ -212,6 +221,5 @@ public class GameWorld extends Observer implements World {
 	public void updateL() {
 		this.score++;
 	}
-
 
 }
