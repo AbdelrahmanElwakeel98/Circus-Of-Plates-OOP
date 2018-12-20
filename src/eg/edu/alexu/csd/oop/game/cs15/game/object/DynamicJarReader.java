@@ -43,6 +43,13 @@ public class DynamicJarReader {
 					classResources.put(je.getName(), ImageIO.read(ShapeClass.getResource("/" + je.getName())));
 				}
 			}
+			Enumeration<JarEntry> e2 = jar.entries();
+			while (e2.hasMoreElements()) {
+				JarEntry je = e2.nextElement();
+				if (je.getName().contains(".png") || je.getName().contains(".jpg")) {
+					classResources.put(je.getName(), ImageIO.read(ShapeClass.getResource("/" + je.getName())));
+				}
+			}
 			jar.close();
 		} catch (IOException e) {
 			System.out.println("Jar not Found");
@@ -69,5 +76,9 @@ public class DynamicJarReader {
 		}
 		return imagesName;
 
+	}
+
+	public Class<? extends GameObject> getShapeClass() {
+		return ShapeClass;
 	}
 }
