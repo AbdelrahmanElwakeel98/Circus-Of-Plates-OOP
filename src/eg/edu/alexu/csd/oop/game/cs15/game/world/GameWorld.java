@@ -37,14 +37,15 @@ public class GameWorld extends Observer implements World {
 	private final LinkedList<GameObject> constant = new LinkedList<GameObject>();
 	private final LinkedList<GameObject> moving = new LinkedList<GameObject>();
 	private LinkedList<GameObject> control = new LinkedList<GameObject>();
-	private String paths[] = { "/basketballBlack.png", "/basketballBlue.png", "/basketballPurple.png",
-			"/footballBlack.png", "/footballBlue.png", "/footballPurple.png" };
+	private String paths[] = { "/goalBlack.png", "/goalBlue.png", "/goalPurple.png",
+			"/footballBlack.png", "/footballBlue.png", "/footballPurple.png","/sergioramos.png" };
 	private LinkedList<GameObject> leftobject;
 	private LinkedList<GameObject> rightobject;
 	private CareTaker careTaker;
 	private Originator originator;
 	private int lives;
 	private Strategy strategy;
+	private boolean timeout;
 
 	public String getRandom(String[] array) {
 		int rnd = new Random().nextInt(array.length);
@@ -103,7 +104,7 @@ public class GameWorld extends Observer implements World {
 
 	@Override
 	public boolean refresh() {
-		boolean timeout = System.currentTimeMillis() - startTime > MAX_TIME;
+		timeout = System.currentTimeMillis() - startTime > MAX_TIME;
 		GameObject c = control.get(0);
 		right = left = height - control.get(0).getHeight();
 		if (rightobject.size() > 0) {
@@ -184,7 +185,9 @@ public class GameWorld extends Observer implements World {
 					m.setSate(new StopStateLeft());
 					cm.executeRightCommand(new AddRightCommand(rightobject, m, control));
 					this.scoreC.setScoreR();
-
+                    if (((Shape)m).getName().contains("ramos")) {
+                    	timeout = true;
+                    }
 					moving.remove(m);
 					new FlyWeightFactory();
 					moving.add(new Shape((int) (Math.random() * width), -1 * (int) (Math.random() * height),
@@ -198,6 +201,9 @@ public class GameWorld extends Observer implements World {
 					m.setY(left);
 					m.setSate(new StopStateRight());
 					cm.executeLeftCommand(new AddLeftCommand(leftobject, m, control));
+					if (((Shape)m).getName().contains("ramos")) {
+                    	timeout = true;
+                    }
 					this.scoreC.setScoreR();
 					moving.remove(m);
 					new FlyWeightFactory();

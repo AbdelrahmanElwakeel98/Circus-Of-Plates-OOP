@@ -11,7 +11,7 @@ public class EasyMode implements Strategy{
 
 	@Override
 	public int getControlSpeed() {
-		return 30;
+		return 50;
 	}
 
 }
