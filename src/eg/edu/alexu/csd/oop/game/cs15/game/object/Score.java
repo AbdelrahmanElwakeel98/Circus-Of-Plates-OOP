@@ -16,6 +16,7 @@ public class Score {
 
 	private LinkedList<GameObject>R;
 	private LinkedList<GameObject>L;
+	private LinkedList<GameObject>Control;
 
 
 	public void setL(LinkedList<GameObject>L) {
@@ -24,11 +25,17 @@ public class Score {
 	public void setR(LinkedList<GameObject>R) {
 		this.R=R;
 	}
+	public void setControl(LinkedList<GameObject>R) {
+		this.Control=R;
+	}
 	public LinkedList<GameObject> getR(){
 		return R;
 	}
 	public LinkedList<GameObject> getL(){
 		return L;
+	}
+	public LinkedList<GameObject> getControl(){
+		return Control;
 	}
 	public int getScore() {
 		return score;
@@ -45,17 +52,17 @@ public class Score {
 		int index = R.size()-1;
 		scoreR = 0;
 		if (index>=2) {
-			System.out.println("lkllk");
+
 		if(((Shape)R.get(index)).getName().contains("Black") && ((Shape)R.get(index-1)).getName().contains("Black") && ((Shape)R.get(index-2)).getName().contains("Black")) {
-			System.out.println("balck");
+
 			scoreR++;}
 		if(((Shape)R.get(index)).getName().contains("Blue") && ((Shape)R.get(index-1)).getName().contains("Blue") && ((Shape)R.get(index-2)).getName().contains("Blue")) {
-			System.out.println("blue");
+
 			scoreR++;
 		}
 
 		if(((Shape)R.get(index)).getName().contains("Purple") && ((Shape)R.get(index-1)).getName().contains("Purple") && ((Shape)R.get(index-2)).getName().contains("Purple")) {
-			System.out.println("purple");
+
 			scoreR++;
 		}
 

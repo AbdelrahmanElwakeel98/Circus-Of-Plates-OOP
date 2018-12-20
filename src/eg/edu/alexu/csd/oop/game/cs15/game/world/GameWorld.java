@@ -42,6 +42,7 @@ public class GameWorld extends Observer implements World {
 	private LinkedList<GameObject> rightobject;
 	private CareTaker careTaker;
 	private Originator originator;
+	private int lives;
 
 	public String getRandom(String[] array) {
 		int rnd = new Random().nextInt(array.length);
@@ -51,7 +52,7 @@ public class GameWorld extends Observer implements World {
 	public GameWorld(int screenWidth, int screenHeight, Score scoreC) {
 		width = screenWidth;
 		height = screenHeight;
-
+		lives = 3;
 		leftobject = new LinkedList<>();
 		rightobject = new LinkedList<>();
 
@@ -66,6 +67,7 @@ public class GameWorld extends Observer implements World {
 		scoreC.attach(this);
 		scoreC.setR(rightobject);
 		scoreC.setL(leftobject);
+		scoreC.setControl(control);
 
 		cm = new CommandManager(this.scoreC);
 		careTaker = new CareTaker(this.scoreC);
@@ -135,17 +137,32 @@ public class GameWorld extends Observer implements World {
 			}
 		}
 		if (timeout == true) {
-			if (score > 0) {
-				rightobject = careTaker.get(score - 1).getStateRight();
-				leftobject = careTaker.get(score - 1).getStateLeft();
-				scoreC.setL(leftobject);
-				scoreC.setR(rightobject);
-				control = new LinkedList<>();
-				//c.setX(careTaker.getUpdatedX());
-				control=new LinkedList<>();
-				control.add(c);
-				control.addAll(rightobject);
-				control.addAll(leftobject);
+			if (lives > 0) {
+				if (score > 0) {
+					// trimming left
+
+					int x = leftobject.size();
+					int y = rightobject.size();
+					System.out.println(careTaker.get(0).getStateLeft());
+					System.out.println(careTaker.get(0).getStateRight());
+					for (int i = 0; i < x - careTaker.get(0).getStateLeft(); i++) {
+						control.remove(leftobject.peekLast());
+						leftobject.removeLast();
+					}
+					for (int i = 0; i < y - careTaker.get(0).getStateRight(); i++) {
+						control.remove(rightobject.peekLast());
+						rightobject.removeLast();
+					}
+
+				}
+				else
+				{
+					leftobject.clear();
+					rightobject.clear();
+					control.clear();
+					control.add(c);
+				}
+				lives--;
 				startTime = System.currentTimeMillis();
 				timeout = false;
 			}
@@ -159,7 +176,6 @@ public class GameWorld extends Observer implements World {
 						- m.getWidth())) {
 			if ((c.getX() + c.getWidth() / 2) < (m.getX() + m.getWidth() / 2)) {
 				if (Math.abs((m.getY() + m.getHeight() / 2) - right) <= m.getHeight() / 2) {
-					System.out.println("right "+right);
 					m.setX(c.getX() + c.getWidth() - m.getWidth());
 					m.setY(right);
 					m.setSate(new StopStateLeft());
@@ -170,12 +186,11 @@ public class GameWorld extends Observer implements World {
 					new FlyWeightFactory();
 					moving.add(new Shape((int) (Math.random() * width), -1 * (int) (Math.random() * height),
 							FlyWeightFactory.getShape(getRandom(paths))));
-					//careTaker.setOrdinaryX(c.getX());
+					// careTaker.setOrdinaryX(c.getX());
 				}
 
 			} else {
 				if (Math.abs((m.getY() + m.getHeight() / 2) - left) <= m.getHeight() / 2) {
-					System.out.println("left "+left);
 					m.setX(c.getX());
 					m.setY(left);
 					m.setSate(new StopStateRight());
@@ -185,7 +200,7 @@ public class GameWorld extends Observer implements World {
 					new FlyWeightFactory();
 					moving.add(new Shape((int) (Math.random() * width), -1 * (int) (Math.random() * height),
 							FlyWeightFactory.getShape(getRandom(paths))));
-					//careTaker.setOrdinaryX(c.getX());
+					// careTaker.setOrdinaryX(c.getX());
 				}
 
 			}
@@ -196,7 +211,7 @@ public class GameWorld extends Observer implements World {
 	@Override
 	public String getStatus() {
 		return "Score=" + score + "   |   Time="
-				+ Math.max(0, (MAX_TIME - (System.currentTimeMillis() - startTime)) / 1000);
+				+ Math.max(0, (MAX_TIME - (System.currentTimeMillis() - startTime)) / 1000)+"   |   Lives="+lives;
 	}
 
 	@Override

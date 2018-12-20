@@ -5,29 +5,25 @@ import java.util.LinkedList;
 import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class Memento {
-	private LinkedList<GameObject> stateLeft;
-	private LinkedList<GameObject> stateRight;
-	private int changedX;
+	private int stateLeft;
+	private int stateRight;
 
-	public Memento(LinkedList<GameObject> stateLeft, LinkedList<GameObject> stateRight,int changedX) {
+
+	public Memento(int stateLeft,int stateRight) {
 		this.stateLeft = stateLeft;
 		this.stateRight = stateRight;
-		this.changedX=changedX;
+
 	}
 
-	public LinkedList<GameObject> getStateLeft() {
+	public int getStateLeft() {
 		return stateLeft;
 
 	}
 
-	public LinkedList<GameObject> getStateRight() {
+	public int getStateRight() {
 		return stateRight;
 
 	}
-	public int getChangedX()
-	{
-		return changedX;
 
-	}
 
 }

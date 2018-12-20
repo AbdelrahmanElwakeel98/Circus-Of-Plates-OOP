@@ -21,7 +21,6 @@ public class CareTaker extends Observer {
 	}
 
 	public Memento get(int index) {
-        System.out.println(mList.get(index));
 		return mList.get(index);
 
 	}
@@ -29,11 +28,10 @@ public class CareTaker extends Observer {
 	@Override
 	public void updateR() {
 		// TODO Auto-generated method stub
+		mList.clear();
 		Originator originator = new Originator();
-		LinkedList<GameObject> l=(LinkedList<GameObject>) scoreC.getL().clone();
-		originator.setStateLeft(l);
-		LinkedList<GameObject> r =(LinkedList<GameObject>) scoreC.getR().clone();
-		originator.setStateRight(r);
+		originator.setStateLeft(scoreC.getL().size());
+		originator.setStateRight(scoreC.getR().size());
 		//UpdatedX=ordinaryX;
 		add(originator.saveToMemento());
 
@@ -42,11 +40,11 @@ public class CareTaker extends Observer {
 	@Override
 	public void updateL() {
 		// TODO Auto-generated method stub
+		mList.clear();
+		mList.clear();
 		Originator originator = new Originator();
-		LinkedList<GameObject> l=(LinkedList<GameObject>) scoreC.getL().clone();
-		originator.setStateLeft(l);
-		LinkedList<GameObject> r =(LinkedList<GameObject>) scoreC.getR().clone();
-		originator.setStateRight(r);
+		originator.setStateLeft(scoreC.getL().size());
+		originator.setStateRight(scoreC.getR().size());
 		//UpdatedX=ordinaryX;
 		add(originator.saveToMemento());
 
