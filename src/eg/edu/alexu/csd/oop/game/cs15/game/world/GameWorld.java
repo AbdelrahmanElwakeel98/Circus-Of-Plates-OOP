@@ -10,6 +10,7 @@ import eg.edu.alexu.csd.oop.game.World;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Shape;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.StopStateLeft;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.StopStateRight;
+import eg.edu.alexu.csd.oop.game.cs15.Strategy;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.AddLeftCommand;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.AddRightCommand;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.CareTaker;
@@ -43,13 +44,15 @@ public class GameWorld extends Observer implements World {
 	private CareTaker careTaker;
 	private Originator originator;
 	private int lives;
+	private Strategy strategy;
 
 	public String getRandom(String[] array) {
 		int rnd = new Random().nextInt(array.length);
 		return array[rnd];
 	}
 
-	public GameWorld(int screenWidth, int screenHeight, Score scoreC) {
+	public GameWorld(int screenWidth, int screenHeight, Score scoreC,Strategy strategy) {
+		this.strategy = strategy;
 		width = screenWidth;
 		height = screenHeight;
 		lives = 3;
@@ -217,13 +220,13 @@ public class GameWorld extends Observer implements World {
 	@Override
 	public int getSpeed() {
 		// TODO Auto-generated method stub
-		return 5;
+		return this.strategy.getSpeed();
 	}
 
 	@Override
 	public int getControlSpeed() {
 		// TODO Auto-generated method stub
-		return 10;
+		return this.strategy.getControlSpeed();
 	}
 
 	@Override

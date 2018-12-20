@@ -6,12 +6,12 @@ public class HardMode implements Strategy{
 
 	@Override
 	public int getSpeed() {
-		return 15;
+		return 5;
 	}
 
 	@Override
 	public int getControlSpeed() {
-		return 15;
+		return 10;
 	}
 
 }

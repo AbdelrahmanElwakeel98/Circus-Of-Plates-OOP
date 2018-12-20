@@ -6,12 +6,12 @@ public class ModerateMode implements Strategy{
 
 	@Override
 	public int getSpeed() {
-		return 10;
+		return 5;
 	}
 
 	@Override
 	public int getControlSpeed() {
-		return 10;
+		return 20;
 	}
 
 }

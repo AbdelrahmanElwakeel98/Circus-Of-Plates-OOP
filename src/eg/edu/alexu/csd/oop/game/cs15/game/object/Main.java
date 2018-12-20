@@ -11,6 +11,8 @@ import javax.swing.JMenuItem;
 import eg.edu.alexu.csd.oop.game.GameEngine;
 import eg.edu.alexu.csd.oop.game.GameEngine.GameController;
 import eg.edu.alexu.csd.oop.game.cs15.game.world.GameWorld;
+import eg.edu.alexu.csd.oop.game.cs15.game.world.ModeFactory;
+import eg.edu.alexu.csd.oop.game.cs15.game.world.ModerateMode;
 
 public class Main {
 
@@ -36,11 +38,11 @@ public class Main {
 		menu.add(resumeMenuItem);
 		menuBar.add(menu);
 		menuBar.add(mode);
-		Score scoreC = new Score();
-		final GameController gameController = GameEngine.start("The Egyption King", new GameWorld(700,800,scoreC), menuBar, Color.BLACK);
+		ModeFactory modeFactory = ModeFactory.getInstance();
+		final GameController gameController = GameEngine.start("The Egyption King", new GameWorld(700,800,new Score(), new ModerateMode()), menuBar, Color.BLACK);
 		newMenuItem.addActionListener(new ActionListener() {
 		@Override public void actionPerformed(ActionEvent e) {
-				gameController.changeWorld(new GameWorld(785,800,scoreC));
+				gameController.changeWorld(new GameWorld(785,800,new Score(),new ModerateMode()));
 			}
 		});
 		pauseMenuItem.addActionListener(new ActionListener() {
@@ -55,17 +57,17 @@ public class Main {
 		});
 		easyModeMenuItem.addActionListener(new ActionListener() {
 			@Override public void actionPerformed(ActionEvent e) {
-				gameController.resume();
+				gameController.changeWorld(new GameWorld(785,800,new Score(),modeFactory.getMode("EASY")));
 			}
 		});
 		moderateModeMenuItem.addActionListener(new ActionListener() {
 			@Override public void actionPerformed(ActionEvent e) {
-				gameController.resume();
+				gameController.changeWorld(new GameWorld(785,800,new Score(),modeFactory.getMode("MODERATE")));
 			}
 		});
 		hardModeMenuItem.addActionListener(new ActionListener() {
 			@Override public void actionPerformed(ActionEvent e) {
-				gameController.resume();
+				gameController.changeWorld(new GameWorld(785,800,new Score(),modeFactory.getMode("HARD")));
 			}
 		});
 	}
