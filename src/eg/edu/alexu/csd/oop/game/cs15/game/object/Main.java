@@ -1,7 +1,9 @@
 package eg.edu.alexu.csd.oop.game.cs15.game.object;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -14,7 +16,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.event.MouseInputAdapter;
-
 import eg.edu.alexu.csd.oop.game.GameEngine;
 import eg.edu.alexu.csd.oop.game.GameEngine.GameController;
 import eg.edu.alexu.csd.oop.game.cs15.game.world.GameWorld;
@@ -24,12 +25,38 @@ import eg.edu.alexu.csd.oop.game.cs15.game.world.ModerateMode;
 public class Main {
 	static String Difficulty;
 	public static void main(String[] args) {
+
 		//GameEngine.start("hhh", new GameWorld(785,800));
+		SplashThread splash=new SplashThread();
+        Thread sThread =new Thread(splash);
+        sThread.start();
+        try {
+			Thread.currentThread().sleep(5000);
+
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			sThread.interrupt();
+		}
+        splash.stop();
+        new Thread() {
+
+        	  @Override
+        	  public void run() {
+        	    //As your stream implements Closeable, it is better to use a "try-with-resources"
+        	    BackgroundMusic bm= new BackgroundMusic();
+        	    bm.playSong();
+
+        	  }
+        	}.start();
 		JFrame modeChooser = new JFrame("Choose the Level!");
-		modeChooser.setSize(400, 400);
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (screen.width-700)/2;
+	    int y = (screen.height-450)/2;
+		modeChooser.setBounds(x, y, 400, 400);
 		modeChooser.setLayout(new GridLayout(3, 1));
 		modeChooser.addWindowListener(new WindowAdapter() {
-	         public void windowClosing(WindowEvent windowEvent){
+	         @Override
+			public void windowClosing(WindowEvent windowEvent){
 	            System.exit(0);
 	         }
 	      });
@@ -65,7 +92,7 @@ public class Main {
 		});
 		 modeChooser.setVisible(true);
 	}
-	
+
 	public static void start() {
 		JMenuBar  menuBar = new JMenuBar();;
 		JMenu menu = new JMenu("File");

@@ -13,5 +13,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="D:/JD/jdbc/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ziad/git/gameproject/lib/jl1.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
