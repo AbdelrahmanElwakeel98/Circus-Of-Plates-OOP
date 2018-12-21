@@ -19,14 +19,11 @@ public class ImageType implements GameObject {
 	public ImageType(String path) {
 		this.path = path;
 		this.visible = true;
+		
+		DynamicJarReader jar = new DynamicJarReader("C:\\Users\\abdel\\Desktop\\test4.jar");
 		// create a bunch of buffered images and place into an array, to be displayed
 		// sequentially
-		try {
-			spriteImages[0] = ImageIO.read(getClass().getResourceAsStream(path));
-		} catch (IOException e) {
-			log.warn("Can not get the image");
-			e.printStackTrace();
-		}
+			spriteImages[0] = jar.getImage(path);
 
 	}
 

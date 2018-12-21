@@ -1,10 +1,13 @@
 package eg.edu.alexu.csd.oop.game.cs15.game.world;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 
 import java.util.List;
 import java.util.Random;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Container;
+import eg.edu.alexu.csd.oop.game.cs15.game.object.DynamicJarReader;
 import eg.edu.alexu.csd.oop.game.GameObject;
 import eg.edu.alexu.csd.oop.game.World;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Shape;
@@ -19,6 +22,7 @@ import eg.edu.alexu.csd.oop.game.cs15.game.object.CommandManager;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.ConstantBackground;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.FlyWeightFactory;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.GameObjectContainer;
+import eg.edu.alexu.csd.oop.game.cs15.game.object.ImageType;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Iterator;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Observer;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Originator;
@@ -37,8 +41,9 @@ public class GameWorld extends Observer implements World {
 	private final LinkedList<GameObject> constant = new LinkedList<GameObject>();
 	private final LinkedList<GameObject> moving = new LinkedList<GameObject>();
 	private LinkedList<GameObject> control = new LinkedList<GameObject>();
-	private String paths[] = { "/goalBlack.png", "/goalBlue.png", "/goalPurple.png", "/footballBlack.png",
-			"/footballBlue.png", "/footballPurple.png", "/sergioramos.png" };
+	private DynamicJarReader jar = new DynamicJarReader("C:\\Users\\abdel\\Desktop\\test4.jar");
+	private Constructor<?> co;
+	private String paths[] = jar.getImagesName();
 	private LinkedList<GameObject> leftobject;
 	private LinkedList<GameObject> rightobject;
 	private CareTaker careTaker;
@@ -59,12 +64,34 @@ public class GameWorld extends Observer implements World {
 		lives = 3;
 		leftobject = new LinkedList<>();
 		rightobject = new LinkedList<>();
-
+        try {
+			co = jar.getShapeClass().getConstructor(Integer.TYPE, Integer.TYPE, ImageType.class);
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		control.add(new Clown(screenWidth / 2, (int) (screenHeight * 0.75), "/moSalah.png"));
 		right = left = height - control.get(0).getHeight();
 		for (int i = 0; i < 10; i++) {
-			moving.add(new Shape((int) (Math.random() * screenWidth), -1 * (int) (Math.random() * screenHeight),
-					FlyWeightFactory.getShape(getRandom(paths))));
+			try {
+				moving.add((GameObject) co.newInstance((int) (Math.random() * screenWidth), -1 * (int) (Math.random() * screenHeight),
+						FlyWeightFactory.getShape(getRandom(paths))));
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		constant.add(new ConstantBackground(0, 0, "/st.jpg"));
 		this.scoreC = scoreC;
@@ -190,8 +217,14 @@ public class GameWorld extends Observer implements World {
 					}
 					moving.remove(m);
 					new FlyWeightFactory();
-					moving.add(new Shape((int) (Math.random() * width), -1 * (int) (Math.random() * height),
-							FlyWeightFactory.getShape(getRandom(paths))));
+					try {
+						moving.add((GameObject) co.newInstance((int) (Math.random() * width), -1 * (int) (Math.random() * height),
+								FlyWeightFactory.getShape(getRandom(paths))));
+					} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+							| InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					// careTaker.setOrdinaryX(c.getX());
 				}
 
@@ -207,8 +240,14 @@ public class GameWorld extends Observer implements World {
 					this.scoreC.setScoreR();
 					moving.remove(m);
 					new FlyWeightFactory();
-					moving.add(new Shape((int) (Math.random() * width), -1 * (int) (Math.random() * height),
-							FlyWeightFactory.getShape(getRandom(paths))));
+					try {
+						moving.add((GameObject)co.newInstance((int) (Math.random() * width), -1 * (int) (Math.random() * height),
+								FlyWeightFactory.getShape(getRandom(paths))));
+					} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+							| InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					// careTaker.setOrdinaryX(c.getX());
 				}
 

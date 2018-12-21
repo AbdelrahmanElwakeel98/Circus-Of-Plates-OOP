@@ -22,11 +22,11 @@ public class ModeFactory {
 	
 }
 	
-	private static ModeFactory instatnce = new ModeFactory();
+	private static ModeFactory instance = new ModeFactory();
 	
 	private ModeFactory() {}
 	
 	public static ModeFactory getInstance() {
-		return instatnce;
+		return instance;
 	}
 }
