@@ -1,8 +1,10 @@
 package eg.edu.alexu.csd.oop.game.cs15.game.object;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Enumeration;
@@ -23,6 +25,7 @@ public class DynamicJarReader {
 	private HashMap<String, BufferedImage> classResources;
 	private Logger log = JLogger.getLogInstance();
 	private static DynamicJarReader jarReader;
+	private File file = null;
 	
 	public static DynamicJarReader getInstance(String path) {
 		if(jarReader==null) {
@@ -34,7 +37,18 @@ public class DynamicJarReader {
 	private DynamicJarReader(String path) {
 		pathToJar = path;
 		ShapeClass = null;
+		file = new File(path);
 		classResources = new HashMap<>();
+		try {
+			URL url = file.toURI().toURL();
+
+			URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+			Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
+			method.setAccessible(true);
+			method.invoke(classLoader, url);
+		} catch (Exception e) {
+			throw new RuntimeException("Unexpected exception", e);
+		}
 		readClass();
 	}
 
@@ -53,16 +67,6 @@ public class DynamicJarReader {
 					className = className.replace('/', '.');
 					ShapeClass = (Class<? extends GameObject>) cl.loadClass(className);
 				} else if (je.getName().contains(".png") || je.getName().contains(".jpg")) {
-					InputStream in = ShapeClass.getResourceAsStream("/" + je.getName());
-					if ( in == null )
-						try {
-							throw new Exception("resource not found: " + "/" + je.getName());
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-
-				//	System.out.println(je.getName());
 					classResources.put(je.getName(), ImageIO.read(ShapeClass.getResource("/" + je.getName())));
 				}
 			}
