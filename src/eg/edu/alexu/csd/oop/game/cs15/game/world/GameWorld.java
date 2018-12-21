@@ -25,7 +25,6 @@ import eg.edu.alexu.csd.oop.game.cs15.game.object.GameObjectContainer;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.ImageType;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Iterator;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Observer;
-import eg.edu.alexu.csd.oop.game.cs15.game.object.Originator;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Score;
 
 public class GameWorld extends Observer implements World {
@@ -41,13 +40,12 @@ public class GameWorld extends Observer implements World {
 	private final LinkedList<GameObject> constant = new LinkedList<GameObject>();
 	private final LinkedList<GameObject> moving = new LinkedList<GameObject>();
 	private LinkedList<GameObject> control = new LinkedList<GameObject>();
-	private DynamicJarReader jar = DynamicJarReader.getInstance("C:\\Users\\abdel\\Desktop\\test4.jar");
+	private DynamicJarReader jar = DynamicJarReader.getInstance("lib/test.jar");
 	private Constructor<?> co;
 	private String paths[] = jar.getImagesName();
 	private LinkedList<GameObject> leftobject;
 	private LinkedList<GameObject> rightobject;
 	private CareTaker careTaker;
-	private Originator originator;
 	private int lives;
 	private Strategy strategy;
 	private boolean timeout;
@@ -162,13 +160,8 @@ public class GameWorld extends Observer implements World {
 
 					l.move(c.getX() + c.getWidth());
 				}
-			} else if (c.getX() + c.getWidth() - 12 == width) {
-<<<<<<< HEAD
+			} else if (c.getX() + c.getWidth() >= width) {
 				if (l.getX() - c.getX() < c.getWidth() / 2) {
-=======
-				if (l.getX() - c.getX() < l.getWidth()) {
->>>>>>> refs/heads/splashAnd_Song
-
 					l.move(c.getX());
 				}
 			}

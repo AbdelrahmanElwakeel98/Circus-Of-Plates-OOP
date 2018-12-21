@@ -1,12 +1,6 @@
 package eg.edu.alexu.csd.oop.game.cs15.game.object;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
-import org.apache.log4j.Logger;
-
 import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class ImageType implements GameObject {
@@ -14,13 +8,11 @@ public class ImageType implements GameObject {
 	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
 	private boolean visible;
 	private String path;
-	private Logger log = JLogger.getLogInstance();
-
 	public ImageType(String path) {
 		this.path = path;
 		this.visible = true;
 		
-		DynamicJarReader jar = DynamicJarReader.getInstance("C:\\Users\\abdel\\Desktop\\test4.jar");
+		DynamicJarReader jar = DynamicJarReader.getInstance("lib/test.jar");
 		// create a bunch of buffered images and place into an array, to be displayed
 		// sequentially
 			spriteImages[0] = jar.getImage(path);

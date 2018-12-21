@@ -20,81 +20,81 @@ import eg.edu.alexu.csd.oop.game.GameEngine;
 import eg.edu.alexu.csd.oop.game.GameEngine.GameController;
 import eg.edu.alexu.csd.oop.game.cs15.game.world.GameWorld;
 import eg.edu.alexu.csd.oop.game.cs15.game.world.ModeFactory;
-import eg.edu.alexu.csd.oop.game.cs15.game.world.ModerateMode;
 
 public class Main {
 	static String Difficulty;
-	public static void main(String[] args) {
 
-		//GameEngine.start("hhh", new GameWorld(785,800));
-		SplashThread splash=new SplashThread();
-        Thread sThread =new Thread(splash);
-        sThread.start();
-        try {
-			Thread.currentThread().sleep(5000);
+	public static void main(String[] args) {
+		SplashThread splash = new SplashThread();
+		Thread sThread = new Thread(splash);
+		sThread.start();
+		try {
+			Thread.currentThread();
+			Thread.sleep(5000);
 
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			sThread.interrupt();
 		}
-        splash.stop();
-        new Thread() {
+		splash.stop();
+		new Thread() {
 
-        	  @Override
-        	  public void run() {
-        	    //As your stream implements Closeable, it is better to use a "try-with-resources"
-        	    BackgroundMusic bm= new BackgroundMusic();
-        	    bm.playSong();
+			@Override
+			public void run() {
+				// As your stream implements Closeable, it is better to use a
+				// "try-with-resources"
+				BackgroundMusic bm = new BackgroundMusic();
+				bm.playSong();
 
-        	  }
-        	}.start();
+			}
+		}.start();
 		JFrame modeChooser = new JFrame("Choose the Level!");
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		int x = (screen.width-700)/2;
-	    int y = (screen.height-450)/2;
+		int x = (screen.width - 700) / 2;
+		int y = (screen.height - 450) / 2;
 		modeChooser.setBounds(x, y, 400, 400);
 		modeChooser.setLayout(new GridLayout(3, 1));
 		modeChooser.addWindowListener(new WindowAdapter() {
-	         @Override
-			public void windowClosing(WindowEvent windowEvent){
-	            System.exit(0);
-	         }
-	      });
-		 JLabel easyLabel = new JLabel("Easy Mode",JLabel.CENTER);
-		 modeChooser.add(easyLabel);
-		 easyLabel.addMouseListener(new MouseInputAdapter() {
-			 @Override
-			 public void mouseClicked(MouseEvent event) {
-				 Difficulty = "EASY";
-				 modeChooser.setVisible(false);
-				 start();
-			 }
+			@Override
+			public void windowClosing(WindowEvent windowEvent) {
+				System.exit(0);
+			}
 		});
-		 JLabel mediumLabel = new JLabel("Medium Mode",JLabel.CENTER);
-		 modeChooser.add(mediumLabel);
-		 mediumLabel.addMouseListener(new MouseInputAdapter() {
-			 @Override
-			 public void mouseClicked(MouseEvent event) {
-				 Difficulty = "MODERATE";
-				 modeChooser.setVisible(false);
-				 start();
-			 }
+		JLabel easyLabel = new JLabel("Easy Mode", JLabel.CENTER);
+		modeChooser.add(easyLabel);
+		easyLabel.addMouseListener(new MouseInputAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent event) {
+				Difficulty = "EASY";
+				modeChooser.setVisible(false);
+				start();
+			}
 		});
-		 JLabel hardLabel = new JLabel("Hard Mode",JLabel.CENTER);
-		 modeChooser.add(hardLabel);
-		 hardLabel.addMouseListener(new MouseInputAdapter() {
-			 @Override
-			 public void mouseClicked(MouseEvent event) {
-				 Difficulty = "HARD";
-				 modeChooser.setVisible(false);
-				 start();
-			 }
+		JLabel mediumLabel = new JLabel("Medium Mode", JLabel.CENTER);
+		modeChooser.add(mediumLabel);
+		mediumLabel.addMouseListener(new MouseInputAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent event) {
+				Difficulty = "MODERATE";
+				modeChooser.setVisible(false);
+				start();
+			}
 		});
-		 modeChooser.setVisible(true);
+		JLabel hardLabel = new JLabel("Hard Mode", JLabel.CENTER);
+		modeChooser.add(hardLabel);
+		hardLabel.addMouseListener(new MouseInputAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent event) {
+				Difficulty = "HARD";
+				modeChooser.setVisible(false);
+				start();
+			}
+		});
+		modeChooser.setVisible(true);
 	}
 
 	public static void start() {
-		JMenuBar  menuBar = new JMenuBar();;
+		JMenuBar menuBar = new JMenuBar();
+		;
 		JMenu menu = new JMenu("File");
 		JMenu mode = new JMenu("Mode");
 		JMenuItem newMenuItem = new JMenuItem("New");
@@ -115,35 +115,42 @@ public class Main {
 		menuBar.add(menu);
 		menuBar.add(mode);
 		ModeFactory modeFactory = ModeFactory.getInstance();
-		final GameController gameController = GameEngine.start("The Egyption King", new GameWorld(700,800,new Score(), modeFactory.getMode(Difficulty)), menuBar, Color.BLACK);
+		final GameController gameController = GameEngine.start("The Egyption King",
+				new GameWorld(700, 800, new Score(), modeFactory.getMode(Difficulty)), menuBar, Color.BLACK);
 		newMenuItem.addActionListener(new ActionListener() {
-		@Override public void actionPerformed(ActionEvent e) {
-				gameController.changeWorld(new GameWorld(785,800,new Score(),modeFactory.getMode(Difficulty)));
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gameController.changeWorld(new GameWorld(785, 800, new Score(), modeFactory.getMode(Difficulty)));
 			}
 		});
 		pauseMenuItem.addActionListener(new ActionListener() {
-		@Override public void actionPerformed(ActionEvent e) {
+			@Override
+			public void actionPerformed(ActionEvent e) {
 				gameController.pause();
 			}
 		});
 		resumeMenuItem.addActionListener(new ActionListener() {
-			@Override public void actionPerformed(ActionEvent e) {
+			@Override
+			public void actionPerformed(ActionEvent e) {
 				gameController.resume();
 			}
 		});
 		easyModeMenuItem.addActionListener(new ActionListener() {
-			@Override public void actionPerformed(ActionEvent e) {
-				gameController.changeWorld(new GameWorld(785,800,new Score(),modeFactory.getMode("EASY")));
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gameController.changeWorld(new GameWorld(785, 800, new Score(), modeFactory.getMode("EASY")));
 			}
 		});
 		moderateModeMenuItem.addActionListener(new ActionListener() {
-			@Override public void actionPerformed(ActionEvent e) {
-				gameController.changeWorld(new GameWorld(785,800,new Score(),modeFactory.getMode("MODERATE")));
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gameController.changeWorld(new GameWorld(785, 800, new Score(), modeFactory.getMode("MODERATE")));
 			}
 		});
 		hardModeMenuItem.addActionListener(new ActionListener() {
-			@Override public void actionPerformed(ActionEvent e) {
-				gameController.changeWorld(new GameWorld(785,800,new Score(),modeFactory.getMode("HARD")));
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gameController.changeWorld(new GameWorld(785, 800, new Score(), modeFactory.getMode("HARD")));
 			}
 		});
 	}

@@ -1,9 +1,5 @@
 package eg.edu.alexu.csd.oop.game.cs15.game.object;
 
-import java.util.LinkedList;
-
-import eg.edu.alexu.csd.oop.game.GameObject;
-
 public class Originator {
 	private int stateLeft;
 	private int stateRight;
