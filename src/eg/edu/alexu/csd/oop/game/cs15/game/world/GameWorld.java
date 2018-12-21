@@ -136,6 +136,7 @@ public class GameWorld extends Observer implements World {
 				}
 			} else if (c.getX() + c.getWidth() - 12 == width) {
 				if (l.getX() - c.getX() < l.getWidth()) {
+
 					l.move(c.getX());
 				}
 			}
@@ -183,7 +184,7 @@ public class GameWorld extends Observer implements World {
 					m.setSate(new StopStateLeft());
 					cm.executeRightCommand(new AddRightCommand(rightobject, m, control));
 					this.scoreC.setScoreR();
-					if (((Shape) m).getName().contains("ramos")) {
+					if (m.getName().contains("ramos")) {
 						timeout = true;
 					}
 					moving.remove(m);
@@ -199,7 +200,7 @@ public class GameWorld extends Observer implements World {
 					m.setY(left);
 					m.setSate(new StopStateRight());
 					cm.executeLeftCommand(new AddLeftCommand(leftobject, m, control));
-					if (((Shape) m).getName().contains("ramos")) {
+					if (m.getName().contains("ramos")) {
 						timeout = true;
 					}
 					this.scoreC.setScoreR();
