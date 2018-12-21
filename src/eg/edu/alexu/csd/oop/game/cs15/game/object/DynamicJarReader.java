@@ -2,6 +2,7 @@ package eg.edu.alexu.csd.oop.game.cs15.game.object;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Enumeration;
@@ -52,6 +53,16 @@ public class DynamicJarReader {
 					className = className.replace('/', '.');
 					ShapeClass = (Class<? extends GameObject>) cl.loadClass(className);
 				} else if (je.getName().contains(".png") || je.getName().contains(".jpg")) {
+					InputStream in = ShapeClass.getResourceAsStream("/" + je.getName());
+					if ( in == null )
+						try {
+							throw new Exception("resource not found: " + "/" + je.getName());
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
+				//	System.out.println(je.getName());
 					classResources.put(je.getName(), ImageIO.read(ShapeClass.getResource("/" + je.getName())));
 				}
 			}
