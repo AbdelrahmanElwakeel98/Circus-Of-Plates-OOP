@@ -4,11 +4,11 @@ import java.awt.image.BufferedImage;
 
 import eg.edu.alexu.csd.oop.game.GameObject;
 
-public class Shape implements GameObject {
+public abstract class Shape implements GameObject {
 	private int x, y;
 	private boolean visible;
 	private ImageType ballType;
-	private State s;
+	protected State s;
 
 	public Shape(int x, int y, ImageType ballType) {
 		this.x = x;
@@ -60,17 +60,11 @@ public class Shape implements GameObject {
 		return this.ballType.getSpriteImages();
 	}
 
-	public void move(int k) {
-		s.move(this , k );
-	}
+	public abstract void move(int k);
 
-	public State getSate() {
-		return s;
-	}
+	public abstract  State getSate();
 
-	public void setSate(State s) {
-		this.s = s;
-	}
+	public abstract void setSate(State s);
 
 	public String getName() {
 		return this.ballType.getNameImage();

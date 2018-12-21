@@ -25,9 +25,9 @@ public class DynamicJarReader {
 	private Logger log = JLogger.getLogInstance();
 	private static DynamicJarReader jarReader;
 	private File file = null;
-	
+
 	public static DynamicJarReader getInstance(String path) {
-		if(jarReader==null) {
+		if (jarReader == null) {
 			jarReader = new DynamicJarReader(path);
 		}
 		return jarReader;
@@ -64,10 +64,11 @@ public class DynamicJarReader {
 				if (je.getName().contains(".class")) {
 					String className = je.getName().substring(0, je.getName().length() - 6);
 					className = className.replace('/', '.');
-					ShapeClass = (Class<? extends GameObject>) cl.loadClass(className);
-				} else if (je.getName().contains(".png") || je.getName().contains(".jpg")) {
+					if (className.contains("CShape"))
+						ShapeClass = (Class<? extends GameObject>) cl.loadClass(className);
+				} /*else if (je.getName().contains(".png") || je.getName().contains(".jpg")) {
 					classResources.put(je.getName(), ImageIO.read(ShapeClass.getResource("/" + je.getName())));
-				}
+				}*/
 			}
 			Enumeration<JarEntry> e2 = jar.entries();
 			while (e2.hasMoreElements()) {

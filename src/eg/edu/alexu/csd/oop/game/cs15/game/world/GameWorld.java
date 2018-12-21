@@ -198,7 +198,7 @@ public class GameWorld extends Observer implements World {
 		return !timeout && lives > 0;
 	}
 
-	void Checkintersection(Shape m, GameObject c) {
+	private void Checkintersection(Shape m, GameObject c) {
 		if ((Math.abs((m.getX() + m.getWidth() / 2) - (c.getX() + c.getWidth() / 2)) <= c.getWidth() / 2)
 				&& (Math.abs((m.getX() + m.getWidth() / 2) - (c.getX() + c.getWidth() / 2)) >= c.getWidth() / 2
 						- m.getWidth())) {
