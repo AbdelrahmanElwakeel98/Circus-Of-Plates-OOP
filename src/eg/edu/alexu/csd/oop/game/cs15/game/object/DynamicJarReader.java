@@ -17,12 +17,20 @@ import org.apache.log4j.Logger;
 import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class DynamicJarReader {
-	private String pathToJar;
+	private static String pathToJar;
 	private Class<? extends GameObject> ShapeClass;
 	private HashMap<String, BufferedImage> classResources;
 	private Logger log = JLogger.getLogInstance();
+	private static DynamicJarReader jarReader;
+	
+	public static DynamicJarReader getInstance(String path) {
+		if(jarReader==null) {
+			jarReader = new DynamicJarReader(path);
+		}
+		return jarReader;
+	}
 
-	public DynamicJarReader(String path) {
+	private DynamicJarReader(String path) {
 		pathToJar = path;
 		ShapeClass = null;
 		classResources = new HashMap<>();

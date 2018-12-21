@@ -41,7 +41,7 @@ public class GameWorld extends Observer implements World {
 	private final LinkedList<GameObject> constant = new LinkedList<GameObject>();
 	private final LinkedList<GameObject> moving = new LinkedList<GameObject>();
 	private LinkedList<GameObject> control = new LinkedList<GameObject>();
-	private DynamicJarReader jar = new DynamicJarReader("C:\\Users\\abdel\\Desktop\\test4.jar");
+	private DynamicJarReader jar = DynamicJarReader.getInstance("C:\\Users\\abdel\\Desktop\\test4.jar");
 	private Constructor<?> co;
 	private String paths[] = jar.getImagesName();
 	private LinkedList<GameObject> leftobject;
