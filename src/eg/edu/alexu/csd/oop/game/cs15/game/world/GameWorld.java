@@ -62,21 +62,19 @@ public class GameWorld extends Observer implements World {
 		lives = 3;
 		leftobject = new LinkedList<>();
 		rightobject = new LinkedList<>();
-        try {
+		try {
 			co = jar.getShapeClass().getConstructor(Integer.TYPE, Integer.TYPE, ImageType.class);
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		control.add(new Clown(screenWidth / 2, (int) (screenHeight * 0.75), "/moSalah.png"));
+		control.add(new Clown(screenWidth, screenHeight, "/moSalah.png"));
 		right = left = height - control.get(0).getHeight();
 		for (int i = 0; i < 10; i++) {
 			try {
-				moving.add((GameObject) co.newInstance((int) (Math.random() * screenWidth), -1 * (int) (Math.random() * screenHeight),
-						FlyWeightFactory.getShape(getRandom(paths))));
+				moving.add((GameObject) co.newInstance((int) (Math.random() * screenWidth),
+						-1 * (int) (Math.random() * screenHeight), FlyWeightFactory.getShape(getRandom(paths))));
 			} catch (InstantiationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -91,7 +89,7 @@ public class GameWorld extends Observer implements World {
 				e.printStackTrace();
 			}
 		}
-		constant.add(new ConstantBackground(0, 0, "/st.jpg"));
+		constant.add(new ConstantBackground(screenWidth, screenHeight, "/st.jpg"));
 		this.scoreC = scoreC;
 		scoreC.attach(this);
 		scoreC.setR(rightobject);
@@ -215,8 +213,8 @@ public class GameWorld extends Observer implements World {
 					moving.remove(m);
 					new FlyWeightFactory();
 					try {
-						moving.add((GameObject) co.newInstance((int) (Math.random() * width), -1 * (int) (Math.random() * height),
-								FlyWeightFactory.getShape(getRandom(paths))));
+						moving.add((GameObject) co.newInstance((int) (Math.random() * width),
+								-1 * (int) (Math.random() * height), FlyWeightFactory.getShape(getRandom(paths))));
 					} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 							| InvocationTargetException e) {
 						// TODO Auto-generated catch block
@@ -238,8 +236,8 @@ public class GameWorld extends Observer implements World {
 					moving.remove(m);
 					new FlyWeightFactory();
 					try {
-						moving.add((GameObject)co.newInstance((int) (Math.random() * width), -1 * (int) (Math.random() * height),
-								FlyWeightFactory.getShape(getRandom(paths))));
+						moving.add((GameObject) co.newInstance((int) (Math.random() * width),
+								-1 * (int) (Math.random() * height), FlyWeightFactory.getShape(getRandom(paths))));
 					} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 							| InvocationTargetException e) {
 						// TODO Auto-generated catch block

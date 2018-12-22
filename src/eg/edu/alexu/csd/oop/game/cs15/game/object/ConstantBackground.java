@@ -1,5 +1,7 @@
 package eg.edu.alexu.csd.oop.game.cs15.game.object;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -14,15 +16,21 @@ public class ConstantBackground implements GameObject {
 	private static final int MAX_MSTATE = 1;
 	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
 
-	public ConstantBackground(int x, int y, String path) {
-		this.x = x;
-		this.y = y;
+	public ConstantBackground(int width, int height, String path) {
 		this.visible = true;
 
 		// create a bunch of buffered images and place into an array, to be displayed
 		// sequentially
 		try {
 			spriteImages[0] = ImageIO.read(getClass().getResourceAsStream(path));
+			this.x = 0;
+			this.y = 0;
+			Image tmp = spriteImages[0].getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		    BufferedImage dimg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		    Graphics2D g2d = dimg.createGraphics();
+		    g2d.drawImage(tmp, 0, 0, null);
+		    g2d.dispose();
+		    spriteImages[0] = dimg;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
