@@ -6,7 +6,8 @@ public class ThreadingPool {
 	private  int nThreads;
 	private PoolThread[] threads;
 	private  LinkedBlockingQueue queue;
-	public ThreadingPool(int nThreads) {
+	private static ThreadingPool instance;
+	private ThreadingPool(int nThreads) {
 		this.nThreads=nThreads;
 		queue= new LinkedBlockingQueue<>();
 		threads=new PoolThread[nThreads];
@@ -14,6 +15,14 @@ public class ThreadingPool {
             threads[i] = new PoolThread();
             threads[i].start();
         }
+	}
+	public static ThreadingPool getInstance(int n)
+	{
+		if(instance==null)
+		{
+			instance= new ThreadingPool(n);
+		}
+		return instance;
 	}
   public void execute(Runnable task)
   {

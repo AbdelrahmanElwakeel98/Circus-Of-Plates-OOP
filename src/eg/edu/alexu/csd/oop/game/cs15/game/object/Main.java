@@ -24,19 +24,31 @@ public class Main {
 	static String Difficulty;
 
 	public static void main(String[] args) {
-		ThreadingPool pool =new ThreadingPool(1);
+		ThreadingPool pool =ThreadingPool.getInstance(2);
 		SplashThread splash =new SplashThread();
 		SoundThread sound = new SoundThread();
 		pool.execute(splash);
 		try {
-			Thread.currentThread().sleep(3000);
-
+			Thread.currentThread().sleep(1000);
+			pool.execute(sound);
+			Thread.currentThread().sleep(2000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		splash.stop();
-		pool.execute(sound);
+		Runnable game =new Runnable() {
+			@Override
+			public void run() {
+				startGame();
+			}
+		};
+		pool.execute(game);
+
+
+	}
+	public static void startGame()
+	{
 		JFrame modeChooser = new JFrame("Choose the Level!");
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (screen.width - 700) / 2;
