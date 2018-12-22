@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -33,8 +32,9 @@ public class Main {
 	static String Difficulty;
 
 	public static void main(String[] args) {
-		ThreadingPool pool = new ThreadingPool(2);
-		SplashThread splash = new SplashThread();
+
+		ThreadingPool pool =ThreadingPool.getInstance(2);
+		SplashThread splash =new SplashThread();
 		SoundThread sound = new SoundThread();
 		pool.execute(splash);
 		try {
