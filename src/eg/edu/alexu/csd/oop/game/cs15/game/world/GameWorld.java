@@ -281,5 +281,9 @@ public class GameWorld extends Observer implements World {
 	public void updateL() {
 		this.score++;
 	}
+	
+	public int getLives() {
+		return this.lives;
+	}
 
 }
