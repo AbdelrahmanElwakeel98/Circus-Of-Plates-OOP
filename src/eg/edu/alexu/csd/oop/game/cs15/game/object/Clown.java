@@ -7,7 +7,6 @@ import javax.imageio.ImageIO;
 
 import org.apache.log4j.Logger;
 
-
 import eg.edu.alexu.csd.oop.game.GameObject;
 
 public class Clown implements GameObject {
@@ -18,14 +17,14 @@ public class Clown implements GameObject {
 	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
 	private Logger log = JLogger.getLogInstance();
 
-	public Clown(int x, int y, String path) {
-		this.x = x;
-		this.y = y;
+	public Clown(int width, int height, String path) {
 		this.visible = true;
 		// create a bunch of buffered images and place into an array, to be displayed
 		// sequentially
 		try {
 			spriteImages[0] = ImageIO.read(getClass().getResourceAsStream(path));
+			this.x = width / 2;
+			this.y = height - spriteImages[0].getHeight() - 5;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
