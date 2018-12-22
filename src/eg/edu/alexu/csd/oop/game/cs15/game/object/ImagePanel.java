@@ -12,28 +12,20 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
 
 public class ImagePanel extends JPanel {
 
 	/**
-		 * 
+		 *
 		 */
 	private static final long serialVersionUID = 1L;
 	private Image image;
-	private int height;
-	private int width;
 	BufferedImage imageB;
-	JFrame frame;
+	JWindow frame;
 
 	public ImagePanel() {
-		try {
-			imageB = ImageIO.read(getClass().getResourceAsStream("/splash.gif"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		width = imageB.getWidth();
-		height = imageB.getHeight();
 		try {
 			URL url = getClass().getResource("/splash.gif");
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -56,19 +48,6 @@ public class ImagePanel extends JPanel {
 			e.printStackTrace();
 		}
 	}
-
-	@Override
-	public int getHeight() {
-		return height;
-
-	}
-
-	@Override
-	public int getWidth() {
-		return width;
-
-	}
-
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -82,21 +61,20 @@ public class ImagePanel extends JPanel {
 
 			@Override
 			public void run() {
-				frame = new JFrame();
+				frame = new JWindow();
 				ImagePanel i = new ImagePanel();
 				frame.add(i);
 				System.currentTimeMillis();
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setSize(i.getWidth(), i.getHeight());
+				frame.setSize(800, 550);
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
-				System.currentTimeMillis();
+
 			}
 		});
 	}
 
 	public void close() {
-		frame.setVisible(false);
+		frame.dispose();
 	}
 
 }

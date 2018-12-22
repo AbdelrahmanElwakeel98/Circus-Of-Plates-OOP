@@ -24,33 +24,26 @@ public class Main {
 	static String Difficulty;
 
 	public static void main(String[] args) {
-		SplashThread splash = new SplashThread();
-		Thread sThread = new Thread(splash);
-		sThread.start();
+		ThreadingPool pool =new ThreadingPool(1);
+		SplashThread splash =new SplashThread();
+		SoundThread sound = new SoundThread();
+		pool.execute(splash);
 		try {
-			Thread.currentThread();
-			Thread.sleep(5000);
+			Thread.currentThread().sleep(3000);
 
 		} catch (InterruptedException e) {
-			sThread.interrupt();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		splash.stop();
-		new Thread() {
-
-			@Override
-			public void run() {
-				// As your stream implements Closeable, it is better to use a
-				// "try-with-resources"
-				BackgroundMusic bm = new BackgroundMusic();
-				bm.playSong();
-
-			}
-		}.start();
+		pool.execute(sound);
 		JFrame modeChooser = new JFrame("Choose the Level!");
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (screen.width - 700) / 2;
 		int y = (screen.height - 450) / 2;
-		modeChooser.setBounds(x, y, 400, 400);
+		modeChooser.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		modeChooser.setSize(800, 600);
+		modeChooser.setLocationRelativeTo(null);
 		modeChooser.setLayout(new GridLayout(3, 1));
 		modeChooser.addWindowListener(new WindowAdapter() {
 			@Override
