@@ -206,7 +206,7 @@ public class GameWorld extends Observer implements World {
 				if (Math.abs((m.getY() + m.getHeight() / 2) - right) <= m.getHeight() / 2) {
 					m.setX(c.getX() + c.getWidth() - m.getWidth());
 					m.setY(right);
-					m.setSate(new StopStateLeft());
+					m.setSate(new StopStateLeft(m.getY()));
 					cm.executeRightCommand(new AddRightCommand(rightobject, m, control));
 					this.scoreC.setScoreR();
 					if (m.getName().contains("ramos")) {
@@ -229,7 +229,7 @@ public class GameWorld extends Observer implements World {
 				if (Math.abs((m.getY() + m.getHeight() / 2) - left) <= m.getHeight() / 2) {
 					m.setX(c.getX());
 					m.setY(left);
-					m.setSate(new StopStateRight());
+					m.setSate(new StopStateRight(m.getY()));
 					cm.executeLeftCommand(new AddLeftCommand(leftobject, m, control));
 					if (m.getName().contains("ramos")) {
 						timeout = true;

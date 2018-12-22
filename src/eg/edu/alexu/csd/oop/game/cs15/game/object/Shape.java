@@ -5,17 +5,16 @@ import java.awt.image.BufferedImage;
 import eg.edu.alexu.csd.oop.game.GameObject;
 
 public abstract class Shape implements GameObject {
-	private int x, y;
+	private int x;
 	private boolean visible;
 	private ImageType ballType;
 	protected State s;
 
 	public Shape(int x, int y, ImageType ballType) {
 		this.x = x;
-		this.y = y;
 		this.visible = true;
 		this.ballType = ballType;
-		this.s = new MovingState();
+		this.s = new MovingState(y);
 	}
 
 	@Override
@@ -31,13 +30,12 @@ public abstract class Shape implements GameObject {
 
 	@Override
 	public int getY() {
-		return this.y;
+		return s.getY();
 	}
 
 	@Override
 	public void setY(int y) {
-		if (s.Statename())
-			this.y = y;
+			s.setY(y);;
 	}
 
 	@Override
