@@ -14,13 +14,13 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 import eg.edu.alexu.csd.oop.game.GameEngine;
@@ -29,12 +29,21 @@ import eg.edu.alexu.csd.oop.game.cs15.game.world.GameWorld;
 import eg.edu.alexu.csd.oop.game.cs15.game.world.ModeFactory;
 
 public class Main {
-	static String Difficulty;
+	private static String Difficulty;
+	private static String playerName;
+
+	public static String getPlayerName() {
+		return playerName;
+	}
+
+	public static void setPlayerName(String playerName) {
+		Main.playerName = playerName;
+	}
 
 	public static void main(String[] args) {
 
-		ThreadingPool pool =ThreadingPool.getInstance(2);
-		SplashThread splash =new SplashThread();
+		ThreadingPool pool = ThreadingPool.getInstance(2);
+		SplashThread splash = new SplashThread();
 		SoundThread sound = new SoundThread();
 		pool.execute(splash);
 		try {
@@ -44,11 +53,10 @@ public class Main {
 			Thread.sleep(3000);
 
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		splash.stop();
-        Runnable game = new Runnable() {
+		Runnable game = new Runnable() {
 
 			@Override
 			public void run() {
@@ -58,9 +66,9 @@ public class Main {
 		};
 		pool.execute(game);
 	}
-    public static void startGame()
-    {
-    	JFrame modeChooser = new JFrame("Choose the Level!");
+
+	public static void startGame() {
+		JFrame modeChooser = new JFrame("Choose the Level!");
 		int x = 280;
 		int y = 396;
 		modeChooser.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -118,7 +126,9 @@ public class Main {
 		}
 		modeChooser.setResizable(false);
 		modeChooser.setVisible(true);
-    }
+		setPlayerName(JOptionPane.showInputDialog("Please enter your 5 letter Name."));
+	}
+
 	public static void start() {
 		JMenuBar menuBar = new JMenuBar();
 		;
