@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -15,13 +14,13 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 import eg.edu.alexu.csd.oop.game.GameEngine;
@@ -30,7 +29,16 @@ import eg.edu.alexu.csd.oop.game.cs15.game.world.GameWorld;
 import eg.edu.alexu.csd.oop.game.cs15.game.world.ModeFactory;
 
 public class Main {
-	static String Difficulty;
+	private static String Difficulty;
+	private static String playerName;
+
+	public static String getPlayerName() {
+		return playerName;
+	}
+
+	public static void setPlayerName(String playerName) {
+		Main.playerName = playerName;
+	}
 
 	public static void main(String[] args) {
 		ThreadingPool pool = new ThreadingPool(1);
@@ -42,7 +50,6 @@ public class Main {
 			Thread.sleep(3000);
 
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		splash.stop();
@@ -105,6 +112,7 @@ public class Main {
 		}
 		modeChooser.setResizable(false);
 		modeChooser.setVisible(true);
+		setPlayerName(JOptionPane.showInputDialog("Please enter your 5 letter Name."));
 	}
 
 	public static void start() {
