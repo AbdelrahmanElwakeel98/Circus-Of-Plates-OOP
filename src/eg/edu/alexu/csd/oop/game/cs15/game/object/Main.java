@@ -38,7 +38,9 @@ public class Main {
 		SoundThread sound = new SoundThread();
 		pool.execute(splash);
 		try {
-			Thread.currentThread();
+
+			Thread.sleep(1000);
+			pool.execute(sound);
 			Thread.sleep(3000);
 
 		} catch (InterruptedException e) {
@@ -46,8 +48,19 @@ public class Main {
 			e.printStackTrace();
 		}
 		splash.stop();
-		pool.execute(sound);
-		JFrame modeChooser = new JFrame("Choose the Level!");
+        Runnable game = new Runnable() {
+
+			@Override
+			public void run() {
+				startGame();
+
+			}
+		};
+		pool.execute(game);
+	}
+    public static void startGame()
+    {
+    	JFrame modeChooser = new JFrame("Choose the Level!");
 		int x = 280;
 		int y = 396;
 		modeChooser.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,8 +118,7 @@ public class Main {
 		}
 		modeChooser.setResizable(false);
 		modeChooser.setVisible(true);
-	}
-
+    }
 	public static void start() {
 		JMenuBar menuBar = new JMenuBar();
 		;
@@ -177,7 +189,7 @@ public class Main {
 class IntroBackGround extends JPanel {
 
 	/**
-	* 
+	*
 	*/
 	private static final long serialVersionUID = 1L;
 	private Image backgroundImage;
@@ -192,6 +204,7 @@ class IntroBackGround extends JPanel {
 		backgroundImage = dimg;
 	}
 
+	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(backgroundImage, 0, 0, this);
