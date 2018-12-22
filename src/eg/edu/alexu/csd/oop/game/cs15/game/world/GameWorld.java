@@ -76,7 +76,6 @@ public class GameWorld extends Observer implements World {
 				moving.add((GameObject) co.newInstance((int) (Math.random() * screenWidth),
 						-1 * (int) (Math.random() * screenHeight), FlyWeightFactory.getShape(getRandom(paths))));
 			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
 				// TODO Auto-generated catch block
