@@ -33,7 +33,7 @@ public class Main {
 	static String Difficulty;
 
 	public static void main(String[] args) {
-		ThreadingPool pool = new ThreadingPool(1);
+		ThreadingPool pool = new ThreadingPool(2);
 		SplashThread splash = new SplashThread();
 		SoundThread sound = new SoundThread();
 		pool.execute(splash);
