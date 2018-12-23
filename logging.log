@@ -153,3 +153,60 @@
 2018-12-24 01:02:43 INFO  JLogger:160 - reuse the ball
 2018-12-24 01:02:43 INFO  JLogger:160 - reuse the ball
 2018-12-24 01:02:44 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:36:36 INFO  JLogger:58 - ReadClass
+2018-12-24 01:36:36 INFO  JLogger:28 - Creat Clown
+2018-12-24 01:36:36 INFO  JLogger:13 - creat ball FlyWeightFactory
+2018-12-24 01:36:36 INFO  JLogger:13 - creat ball FlyWeightFactory
+2018-12-24 01:36:36 INFO  JLogger:13 - creat ball FlyWeightFactory
+2018-12-24 01:36:36 INFO  JLogger:13 - creat ball FlyWeightFactory
+2018-12-24 01:36:36 INFO  JLogger:13 - creat ball FlyWeightFactory
+2018-12-24 01:36:36 INFO  JLogger:13 - creat ball FlyWeightFactory
+2018-12-24 01:36:36 INFO  JLogger:13 - creat ball FlyWeightFactory
+2018-12-24 01:36:36 INFO  JLogger:13 - creat ball FlyWeightFactory
+2018-12-24 01:36:36 INFO  JLogger:13 - creat ball FlyWeightFactory
+2018-12-24 01:36:36 INFO  JLogger:13 - creat ball FlyWeightFactory
+2018-12-24 01:36:36 INFO  JLogger:16 - Creat CommadManger
+2018-12-24 01:36:46 INFO  JLogger:237 - intersection
+2018-12-24 01:36:46 INFO  JLogger:19 - Creat AddLeftCommand
+2018-12-24 01:36:46 INFO  JLogger:13 - creat ball FlyWeightFactory
+2018-12-24 01:36:46 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:36:46 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:36:47 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:36:47 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:36:48 INFO  JLogger:211 - intersection
+2018-12-24 01:36:48 INFO  JLogger:19 - Creat AddRightCommand
+2018-12-24 01:36:48 INFO  JLogger:13 - creat ball FlyWeightFactory
+2018-12-24 01:36:48 INFO  JLogger:225 - reuse
+2018-12-24 01:36:50 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:36:50 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:36:50 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:36:51 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:36:54 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:36:55 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:36:56 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:36:56 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:36:56 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:36:58 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:36:58 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:37:00 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:37:01 INFO  JLogger:237 - intersection
+2018-12-24 01:37:01 INFO  JLogger:19 - Creat AddLeftCommand
+2018-12-24 01:37:01 INFO  JLogger:13 - creat ball FlyWeightFactory
+2018-12-24 01:37:03 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:37:05 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:37:06 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:37:07 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:37:07 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:37:07 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:37:08 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:37:09 INFO  JLogger:211 - intersection
+2018-12-24 01:37:09 INFO  JLogger:19 - Creat AddRightCommand
+2018-12-24 01:37:09 INFO  JLogger:13 - creat ball FlyWeightFactory
+2018-12-24 01:37:09 INFO  JLogger:225 - reuse
+2018-12-24 01:37:10 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:37:13 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:37:13 INFO  JLogger:237 - intersection
+2018-12-24 01:37:13 INFO  JLogger:19 - Creat AddLeftCommand
+2018-12-24 01:37:13 INFO  JLogger:13 - creat ball FlyWeightFactory
+2018-12-24 01:37:16 INFO  JLogger:160 - reuse the ball
+2018-12-24 01:37:17 INFO  JLogger:160 - reuse the ball

@@ -1,5 +1,7 @@
 package eg.edu.alexu.csd.oop.game.cs15.game.object;
 
+import eg.edu.alexu.csd.oop.game.GameObject;
+
 public class CShape extends Shape{
 
 	public CShape(int x, int y, ImageType ballType) {
@@ -7,7 +9,7 @@ public class CShape extends Shape{
 	}
 
 	@Override
-	public void move(int k) {
+	public void move(GameObject k) {
 		this.s.move(this, k);
 	}
 

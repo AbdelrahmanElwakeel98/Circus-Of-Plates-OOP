@@ -58,7 +58,7 @@ public abstract class Shape implements GameObject {
 		return this.ballType.getSpriteImages();
 	}
 
-	public abstract void move(int k);
+	public abstract void move(GameObject k);
 
 	public abstract  State getSate();
 

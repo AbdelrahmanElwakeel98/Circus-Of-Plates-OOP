@@ -33,7 +33,7 @@ import eg.edu.alexu.csd.oop.game.cs15.game.object.Score;
 
 public class GameWorld extends Observer implements World {
 
-	private static int MAX_TIME ; // 1 minute
+	private static int MAX_TIME; // 1 minute
 	private int score = 0;
 	private long startTime = System.currentTimeMillis();
 	private int width;
@@ -67,8 +67,8 @@ public class GameWorld extends Observer implements World {
 		this.name = name;
 		width = screenWidth;
 		height = screenHeight;
-		lives =strategy.getLives();
-		MAX_TIME=strategy.getTime()*1000;
+		lives = strategy.getLives();
+		MAX_TIME = strategy.getTime() * 1000;
 		leftobject = new LinkedList<>();
 		rightobject = new LinkedList<>();
 		try {
@@ -153,7 +153,7 @@ public class GameWorld extends Observer implements World {
 		for (Iterator iter = mContainer.getIterator(); iter.hasNext();) {
 			GameObject m = (GameObject) iter.next();
 			Shape l = (Shape) m;
-			l.move(1);
+			l.move(c);
 			if (m.getY() == getHeight()) {
 				m.setY(-1 * (int) (Math.random() * getHeight()));
 				m.setX((int) (Math.random() * getWidth()));
@@ -165,23 +165,13 @@ public class GameWorld extends Observer implements World {
 		Iterator iter = cContainer.getIterator();
 		for (iter.next(); iter.hasNext();) {
 			Shape l = (Shape) iter.next();
-
-			if (c.getX() == 0) {
-				if (l.getX() != 0) {
-
-					l.move(c.getX() + c.getWidth());
-				}
-			} else if (c.getX() + c.getWidth() >= width) {
-				if (l.getX() - c.getX() < c.getWidth() / 2) {
-					l.move(c.getX());
-				}
-			}
+			l.move(c);
 		}
 		if (timeout == true) {
 			if (lives > 0) {
 				if (score > 0) {
 					// trimming left
-                    log.info("check point");
+					log.info("check point");
 					int x = leftobject.size();
 					int y = rightobject.size();
 					for (int i = 0; i < x - careTaker.get(0).getStateLeft(); i++) {

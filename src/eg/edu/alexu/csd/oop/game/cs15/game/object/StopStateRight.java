@@ -1,5 +1,7 @@
 package eg.edu.alexu.csd.oop.game.cs15.game.object;
 
+import eg.edu.alexu.csd.oop.game.GameObject;
+
 public class StopStateRight implements State {
 
 	private int y;
@@ -9,9 +11,9 @@ public class StopStateRight implements State {
 	}
 
 	@Override
-	public void move(Shape MyShape, int k) {
+	public void move(Shape MyShape, GameObject k) {
 		// TODO Auto-generated method stub
-		MyShape.setX(k);
+		MyShape.setX(k.getX());
 	}
 
 	@Override
