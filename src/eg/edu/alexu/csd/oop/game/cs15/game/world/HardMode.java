@@ -13,10 +13,22 @@ public class HardMode implements Strategy{
 	public int getControlSpeed() {
 		return 10;
 	}
-	
+
 	@Override
 	public String getStrategyName() {
 		return "HARD";
+	}
+
+	@Override
+	public int getLives() {
+		// TODO Auto-generated method stub
+		return 2;
+	}
+
+	@Override
+	public int getTime() {
+		// TODO Auto-generated method stub
+		return 30;
 	}
 
 }

@@ -19,4 +19,16 @@ public class EasyMode implements Strategy{
 		return "EASY";
 	}
 
+	@Override
+	public int getLives() {
+		// TODO Auto-generated method stub
+		return 6;
+	}
+
+	@Override
+	public int getTime() {
+		// TODO Auto-generated method stub
+		return 60;
+	}
+
 }

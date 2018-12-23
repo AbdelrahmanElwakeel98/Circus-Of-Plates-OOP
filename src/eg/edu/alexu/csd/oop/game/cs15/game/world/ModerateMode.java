@@ -18,4 +18,16 @@ public class ModerateMode implements Strategy{
 	public String getStrategyName() {
 		return "MOD";
 	}
+
+	@Override
+	public int getLives() {
+		// TODO Auto-generated method stub
+		return 4;
+	}
+
+	@Override
+	public int getTime() {
+		// TODO Auto-generated method stub
+		return 40;
+	}
 }

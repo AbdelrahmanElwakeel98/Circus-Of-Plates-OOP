@@ -33,7 +33,7 @@ import eg.edu.alexu.csd.oop.game.cs15.game.object.Score;
 
 public class GameWorld extends Observer implements World {
 
-	private static int MAX_TIME = 1 * 60 * 1000; // 1 minute
+	private static int MAX_TIME ; // 1 minute
 	private int score = 0;
 	private long startTime = System.currentTimeMillis();
 	private int width;
@@ -67,7 +67,8 @@ public class GameWorld extends Observer implements World {
 		this.name = name;
 		width = screenWidth;
 		height = screenHeight;
-		lives = 3;
+		lives =strategy.getLives();
+		MAX_TIME=strategy.getTime()*1000;
 		leftobject = new LinkedList<>();
 		rightobject = new LinkedList<>();
 		try {
