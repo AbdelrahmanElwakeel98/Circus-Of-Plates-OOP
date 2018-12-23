@@ -14,8 +14,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 public class ShowingLeaderBoard {
-	public ShowingLeaderBoard(boolean endGame) {
-		if (!endGame) {
+
+	private String[] playerInfo;
+	private LinkedList<PlayerInfo> player;
+
+	public ShowingLeaderBoard(String [] playerInfo, LinkedList<PlayerInfo> player) {
+		this.playerInfo = playerInfo;
+		this.player = player;
+	}
+
+	public void show() {
 			JFrame leaderBoard = new JFrame("LeaderBoard");
 			leaderBoard.setLocationRelativeTo(null);
 			Box vb = Box.createVerticalBox();
@@ -30,11 +38,11 @@ public class ShowingLeaderBoard {
 			jp.add(score);
 			jp.add(player);
 			/* put the current player score here */
-			int scoree=5;
-			JLabel currentScore = new JLabel(String.format("%05d", scoree), JLabel.LEFT);
+			String scoree = this.playerInfo[2];
+			JLabel currentScore = new JLabel(String.format("%.5s", scoree), JLabel.LEFT);
 			currentScore.setFont(new Font("Courier New", Font.ITALIC, 20));
 			currentScore.setForeground(Color.red);
-			JLabel currentPlayer = new JLabel(String.format("%.5s", Main.getPlayerName()), JLabel.RIGHT);
+			JLabel currentPlayer = new JLabel(String.format("%.5s", this.playerInfo[0]), JLabel.RIGHT);
 			currentPlayer.setFont(new Font("Courier New", Font.ITALIC, 20));
 			currentPlayer.setForeground(Color.red);
 			JPanel jpCurrent = new JPanel(new GridLayout(1, 2));
@@ -48,10 +56,8 @@ public class ShowingLeaderBoard {
 			leader.setEditable(false);
 			vb.add(leader);
 			leaderBoard.add(vb);
-			/*
-			 * first uncomment line155 then put the text area object and the 2 linked list
-			 */
-			// writeLeaderBoard(scores, players, leader);
+
+			 writeLeaderBoard(this.player, leader);
 			leaderBoard.addWindowListener(new WindowAdapter() {
 				@Override
 				public void windowClosing(WindowEvent windowEvent) {
@@ -60,15 +66,14 @@ public class ShowingLeaderBoard {
 			});
 			leaderBoard.setVisible(true);
 			leaderBoard.setResizable(false);
-		}
-		
+
 	}
-	private void writeLeaderBoard(LinkedList<String> score, LinkedList<String> players, JTextArea leader) {
+	private void writeLeaderBoard(LinkedList<PlayerInfo> score, JTextArea leader) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < score.size(); i++) {
-			sb.append(String.format("%05d", Integer.valueOf(score.get(i)))
+			sb.append(String.format("%05d", Integer.valueOf(score.get(score.size() - 1 - i).getScore()))
 					+ String.format("%" + String.valueOf(leader.getWidth() - 12) + "s", "")
-					+ String.format("%.5s", players.get(i)) + "\n");
+					+ String.format("%.5s", score.get(score.size() - 1 - i).getName()) + "\n");
 		}
 		leader.setText(sb.toString());
 	}

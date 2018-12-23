@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Container;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.DynamicJarReader;
+import eg.edu.alexu.csd.oop.game.cs15.game.object.FacadeLeaderboard;
 import eg.edu.alexu.csd.oop.game.GameObject;
 import eg.edu.alexu.csd.oop.game.World;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Shape;
@@ -49,14 +50,17 @@ public class GameWorld extends Observer implements World {
 	private int lives;
 	private Strategy strategy;
 	private boolean timeout;
+	private String name;
+	private FacadeLeaderboard facadeLeaderboard;
 
 	public String getRandom(String[] array) {
 		int rnd = new Random().nextInt(array.length);
 		return array[rnd];
 	}
 
-	public GameWorld(int screenWidth, int screenHeight, Score scoreC, Strategy strategy) {
+	public GameWorld(int screenWidth, int screenHeight, Score scoreC, String name, Strategy strategy) {
 		this.strategy = strategy;
+		this.name = name;
 		width = screenWidth;
 		height = screenHeight;
 		lives = 3;
@@ -106,6 +110,9 @@ public class GameWorld extends Observer implements World {
 
 	@Override
 	public List<GameObject> getMovableObjects() {
+		if (this.lives == 0) {
+			this.moving.clear();
+		}
 		return this.moving;
 	}
 
@@ -190,6 +197,15 @@ public class GameWorld extends Observer implements World {
 				lives--;
 				startTime = System.currentTimeMillis();
 				timeout = false;
+				if (lives == 0) {
+					System.out.println("hhhhhh");
+					String[] playerInfo = {this.name, this.strategy.getStrategyName(), String.valueOf(this.score)};
+					System.out.println(playerInfo[0]);
+					System.out.println(playerInfo[1]);
+					System.out.println(playerInfo[2]);
+					facadeLeaderboard = new FacadeLeaderboard(playerInfo);
+					facadeLeaderboard.showLeaderboard();
+				}
 			}
 		}
 		return !timeout && lives > 0;

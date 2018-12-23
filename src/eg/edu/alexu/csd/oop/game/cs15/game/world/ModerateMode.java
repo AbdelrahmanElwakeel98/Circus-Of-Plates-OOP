@@ -14,4 +14,8 @@ public class ModerateMode implements Strategy{
 		return 30;
 	}
 
+	@Override
+	public String getStrategyName() {
+		return "MOD";
+	}
 }

@@ -131,7 +131,6 @@ public class Main {
 
 	public static void start() {
 		JMenuBar menuBar = new JMenuBar();
-		;
 		JMenu menu = new JMenu("File");
 		JMenu mode = new JMenu("Mode");
 		JMenuItem newMenuItem = new JMenuItem("New");
@@ -156,11 +155,11 @@ public class Main {
 		int x = (int) (screen.width * 0.80);
 		int y = (int) (screen.height * 0.80);
 		final GameController gameController = GameEngine.start("The Egyption King",
-				new GameWorld(x, y, new Score(), modeFactory.getMode(Difficulty)), menuBar, Color.BLACK);
+				new GameWorld(x, y, new Score(), getPlayerName(), modeFactory.getMode(Difficulty)), menuBar, Color.BLACK);
 		newMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameController.changeWorld(new GameWorld(x, y, new Score(), modeFactory.getMode(Difficulty)));
+				gameController.changeWorld(new GameWorld(x, y, new Score(), getPlayerName(), modeFactory.getMode(Difficulty)));
 			}
 		});
 		pauseMenuItem.addActionListener(new ActionListener() {
@@ -178,19 +177,19 @@ public class Main {
 		easyModeMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameController.changeWorld(new GameWorld(x, y, new Score(), modeFactory.getMode("EASY")));
+				gameController.changeWorld(new GameWorld(x, y, new Score(), getPlayerName(), modeFactory.getMode("EASY")));
 			}
 		});
 		moderateModeMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameController.changeWorld(new GameWorld(x, y, new Score(), modeFactory.getMode("MODERATE")));
+				gameController.changeWorld(new GameWorld(x, y, new Score(), getPlayerName(), modeFactory.getMode("MODERATE")));
 			}
 		});
 		hardModeMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameController.changeWorld(new GameWorld(x, y, new Score(), modeFactory.getMode("HARD")));
+				gameController.changeWorld(new GameWorld(x, y, new Score(), getPlayerName(), modeFactory.getMode("HARD")));
 			}
 		});
 	}

@@ -1,5 +1,6 @@
 package eg.edu.alexu.csd.oop.game.cs15.game.object;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -18,6 +19,16 @@ public class ReadLeaderboard {
 
 	public ReadLeaderboard(String path) {
 		this.path = path;
+	}
+	
+	public boolean checkerFile() {
+		File file = new File(this.path);
+		
+		if (file.exists()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public Map<String, LinkedList<PlayerInfo>> getData(){

@@ -35,10 +35,7 @@ public class SortLeaderboard {
 
 
 				map.get("EASY").add(new PlayerInfo(this.playerData[0], this.playerData[2]));
-				System.out.println(map.get("EASY").get(map.get("EASY").size() - 1).getName());
 			}
-
-			System.out.println(map.get("EASY").get(map.get("EASY").size() - 1).getName());
 
 			 int n = map.get("EASY").size();
 		        for (int j = 1; j < n; ++j)

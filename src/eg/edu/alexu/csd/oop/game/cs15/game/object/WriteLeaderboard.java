@@ -17,11 +17,10 @@ public class WriteLeaderboard {
 		this.data = data;
 	}
 
-
+	
 	public void writeData() {
 		String path = "Leaderboard.json";
 		File x = new File(path);
-		System.out.println(x);
 
 		if (x.exists()) {
 			x.delete();

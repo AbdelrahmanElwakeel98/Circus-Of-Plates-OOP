@@ -13,5 +13,10 @@ public class HardMode implements Strategy{
 	public int getControlSpeed() {
 		return 10;
 	}
+	
+	@Override
+	public String getStrategyName() {
+		return "HARD";
+	}
 
 }

@@ -14,4 +14,9 @@ public class EasyMode implements Strategy{
 		return 50;
 	}
 
+	@Override
+	public String getStrategyName() {
+		return "EASY";
+	}
+
 }
