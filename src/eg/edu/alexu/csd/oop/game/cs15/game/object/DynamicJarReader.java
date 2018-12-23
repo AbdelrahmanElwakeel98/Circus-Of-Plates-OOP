@@ -25,9 +25,10 @@ public class DynamicJarReader {
 	private Logger log = JLogger.getLogInstance();
 	private static DynamicJarReader jarReader;
 	private File file = null;
-
+	
 	public static DynamicJarReader getInstance(String path) {
 		if (jarReader == null) {
+			
 			jarReader = new DynamicJarReader(path);
 		}
 		return jarReader;

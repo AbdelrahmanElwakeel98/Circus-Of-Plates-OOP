@@ -10,7 +10,7 @@ public class FlyWeightFactory {
 	
 	public static ImageType getShape(String path) {
 		ImageType shapeImpl = shapes.get(path);
-		log.info("FlyWeightFactory");
+		log.info("creat ball FlyWeightFactory");
 		if (shapeImpl == null) {
 			shapeImpl = new ImageType(path);
 			shapes.put(path, shapeImpl);

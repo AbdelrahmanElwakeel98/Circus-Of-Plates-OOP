@@ -19,7 +19,6 @@ public class FacadeLeaderboard {
 		read = new ReadLeaderboard("Leaderboard.json");
 		
 		if (read.checkerFile()) {
-			System.out.println("hh");
 			sort = new SortLeaderboard(playerInfo, read.getData());
 			show = new ShowingLeaderBoard(this.playerInfo, sort.sortedData().get(this.playerInfo[1]));
 			show.show();

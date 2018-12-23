@@ -17,7 +17,7 @@ public class GameObjectContainer implements Container {
 	@Override
 	public Iterator getIterator() {
 		// TODO Auto-generated method stub
-		log.info("GetIterator");
+		
 		return new GameObjectIterator();
 	}
 
@@ -27,10 +27,8 @@ public class GameObjectContainer implements Container {
 		@Override
 		public boolean hasNext() {
 			if (index < objects.size()) {
-				log.info("hasNext");
 				return true;
 			}
-			log.warn("noNext");
 			return false;
 		}
 

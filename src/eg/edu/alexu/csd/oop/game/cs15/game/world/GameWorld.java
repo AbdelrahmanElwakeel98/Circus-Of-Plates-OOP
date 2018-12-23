@@ -3,9 +3,11 @@ package eg.edu.alexu.csd.oop.game.cs15.game.world;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
-
 import java.util.List;
 import java.util.Random;
+
+import org.apache.log4j.Logger;
+
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Container;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.DynamicJarReader;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.FacadeLeaderboard;
@@ -25,6 +27,7 @@ import eg.edu.alexu.csd.oop.game.cs15.game.object.FlyWeightFactory;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.GameObjectContainer;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.ImageType;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Iterator;
+import eg.edu.alexu.csd.oop.game.cs15.game.object.JLogger;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Observer;
 import eg.edu.alexu.csd.oop.game.cs15.game.object.Score;
 
@@ -52,6 +55,7 @@ public class GameWorld extends Observer implements World {
 	private boolean timeout;
 	private String name;
 	private FacadeLeaderboard facadeLeaderboard;
+	private Logger log = JLogger.getLogInstance();
 
 	public String getRandom(String[] array) {
 		int rnd = new Random().nextInt(array.length);
@@ -69,8 +73,10 @@ public class GameWorld extends Observer implements World {
 		try {
 			co = jar.getShapeClass().getConstructor(Integer.TYPE, Integer.TYPE, ImageType.class);
 		} catch (NoSuchMethodException e) {
+			log.error("NoSuchMethod");
 			e.printStackTrace();
 		} catch (SecurityException e) {
+			log.error("SecurityException");
 			e.printStackTrace();
 		}
 		control.add(new Clown(screenWidth, screenHeight, "/moSalah.png"));
@@ -80,15 +86,16 @@ public class GameWorld extends Observer implements World {
 				moving.add((GameObject) co.newInstance((int) (Math.random() * screenWidth),
 						-1 * (int) (Math.random() * screenHeight), FlyWeightFactory.getShape(getRandom(paths))));
 			} catch (InstantiationException e) {
+				log.error("error in creat balls in moving");
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
+				log.error("error in creat balls in moving");
 				e.printStackTrace();
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
+				log.error("error in creat balls in moving");
 				e.printStackTrace();
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
+				log.error("error in creat balls in moving");
 				e.printStackTrace();
 			}
 		}
@@ -98,7 +105,6 @@ public class GameWorld extends Observer implements World {
 		scoreC.setR(rightobject);
 		scoreC.setL(leftobject);
 		scoreC.setControl(control);
-
 		cm = new CommandManager(this.scoreC);
 		careTaker = new CareTaker(this.scoreC);
 	}
@@ -148,9 +154,9 @@ public class GameWorld extends Observer implements World {
 			Shape l = (Shape) m;
 			l.move(1);
 			if (m.getY() == getHeight()) {
-				// reuse the star in another position
 				m.setY(-1 * (int) (Math.random() * getHeight()));
 				m.setX((int) (Math.random() * getWidth()));
+				log.info("reuse the ball");
 			}
 			Checkintersection(l, c);
 		}
@@ -174,11 +180,9 @@ public class GameWorld extends Observer implements World {
 			if (lives > 0) {
 				if (score > 0) {
 					// trimming left
-
+                    log.info("check point");
 					int x = leftobject.size();
 					int y = rightobject.size();
-					System.out.println(careTaker.get(0).getStateLeft());
-					System.out.println(careTaker.get(0).getStateRight());
 					for (int i = 0; i < x - careTaker.get(0).getStateLeft(); i++) {
 						control.remove(leftobject.peekLast());
 						leftobject.removeLast();
@@ -198,12 +202,7 @@ public class GameWorld extends Observer implements World {
 				startTime = System.currentTimeMillis();
 				timeout = false;
 				if (lives == 0) {
-					System.out.println("hhhhhh");
-					String[] playerInfo = {this.name, this.strategy.getStrategyName(), String.valueOf(this.score)};
-					System.out.println(playerInfo[0]);
-					System.out.println(playerInfo[1]);
-					System.out.println(playerInfo[2]);
-					facadeLeaderboard = new FacadeLeaderboard(playerInfo);
+					String[] playerInfo = { this.name, this.strategy.getStrategyName(), String.valueOf(this.score) };
 					facadeLeaderboard.showLeaderboard();
 				}
 			}
@@ -217,6 +216,7 @@ public class GameWorld extends Observer implements World {
 						- m.getWidth())) {
 			if ((c.getX() + c.getWidth() / 2) < (m.getX() + m.getWidth() / 2)) {
 				if (Math.abs((m.getY() + m.getHeight() / 2) - right) <= m.getHeight() / 2) {
+					log.info("intersection");
 					m.setX(c.getX() + c.getWidth() - m.getWidth());
 					m.setY(right);
 					m.setSate(new StopStateLeft(m.getY()));
@@ -230,8 +230,10 @@ public class GameWorld extends Observer implements World {
 					try {
 						moving.add((GameObject) co.newInstance((int) (Math.random() * width),
 								-1 * (int) (Math.random() * height), FlyWeightFactory.getShape(getRandom(paths))));
+						log.info("reuse");
 					} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 							| InvocationTargetException e) {
+						log.error("error in reuse");
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -240,6 +242,7 @@ public class GameWorld extends Observer implements World {
 
 			} else {
 				if (Math.abs((m.getY() + m.getHeight() / 2) - left) <= m.getHeight() / 2) {
+					log.info("intersection");
 					m.setX(c.getX());
 					m.setY(left);
 					m.setSate(new StopStateRight(m.getY()));
@@ -294,7 +297,7 @@ public class GameWorld extends Observer implements World {
 	public void updateL() {
 		this.score++;
 	}
-	
+
 	public int getLives() {
 		return this.lives;
 	}

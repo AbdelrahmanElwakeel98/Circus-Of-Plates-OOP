@@ -13,35 +13,31 @@ public class CommandManager extends Observer {
 	public CommandManager(Score scoreC) {
 		this.scoreC = scoreC;
 		scoreC.attach(this);
+		log.info("Creat CommadManger");
 	}
 
 	public void executeRightCommand(Command c) {
-		log.info("executeRightCommand");
 		c.execute();
 		undoRight.push(c);
 	}
 
 	public void executeLeftCommand(Command c) {
-		log.info("executeLeftCommand");
 		c.execute();
 		undoLeft.push(c);
 	}
 
 	public void undoRightCommand() {
-		log.info("undoRightCommand");
 		Command c = undoRight.pop();
 		c.undo();
 	}
 
 	public void undoLeftCommand() {
-		log.info("undoLeftCommand");
 		Command c = undoLeft.pop();
 		c.undo();
 	}
 
 	@Override
 	public void updateR() {
-		log.info("updateR");
 		undoRightCommand();
 		undoRightCommand();
 		undoRightCommand();
@@ -49,7 +45,6 @@ public class CommandManager extends Observer {
 
 	@Override
 	public void updateL() {
-		log.info("updateL");
 		undoLeftCommand();
 		undoLeftCommand();
 		undoLeftCommand();

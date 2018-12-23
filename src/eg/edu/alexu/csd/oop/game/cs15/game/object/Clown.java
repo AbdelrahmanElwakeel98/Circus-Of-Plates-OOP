@@ -25,7 +25,9 @@ public class Clown implements GameObject {
 			spriteImages[0] = ImageIO.read(getClass().getResourceAsStream(path));
 			this.x = width / 2;
 			this.y = height - spriteImages[0].getHeight() - 5;
+			log.info("Creat Clown");
 		} catch (IOException e) {
+			log.error("some thing error at creating clown");
 			e.printStackTrace();
 		}
 
@@ -33,39 +35,33 @@ public class Clown implements GameObject {
 
 	@Override
 	public int getX() {
-		log.info("getX Clown");
 		return this.x;
 	}
 
 	@Override
 	public void setX(int x) {
-		log.info("setX Clown");
 		this.x = x;
 
 	}
 
 	@Override
 	public int getY() {
-		log.info("getY Clown");
 		return this.y;
 	}
 
 	@Override
 	public void setY(int y) {
 		// TODO Auto-generated method stub
-		log.info("setY Clown");
 	}
 
 	@Override
 	public int getWidth() {
 		// System.out.println( "W "+this.spriteImages[0].getHeight());
-		log.info("getWidth Clown");
 		return this.spriteImages[0].getWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		log.info("getHeight Clown");
 		return this.spriteImages[0].getHeight();
 	}
 
@@ -76,7 +72,6 @@ public class Clown implements GameObject {
 
 	@Override
 	public BufferedImage[] getSpriteImages() {
-		log.info("BufferdImage Clown");
 		return this.spriteImages;
 	}
 

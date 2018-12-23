@@ -4,27 +4,29 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class EmptyFile {
-	
+
+	private Logger log = JLogger.getLogInstance();
 	public void write() {
 		String path = "Leaderboard.json";
 		File x = new File(path);
-
+        log.warn("writing in file");
 		if (x.exists()) {
 			x.delete();
 			try {
 				x.createNewFile();
 			} catch (IOException e) {
-
+                 log.error("error in creating file");
 			}
 		} else {
 			try {
 				x.createNewFile();
 			} catch (IOException e) {
-
+				  log.error("error in creating file");
 			}
 		}
 
@@ -43,13 +45,13 @@ public class EmptyFile {
 		obj.put("namesHard", namesHard);
 		obj.put("scoreHard", scoreHard);
 
-
 		try (FileWriter file = new FileWriter(path)) {
 
 			file.write(obj.toString());
 			file.flush();
 
 		} catch (IOException e) {
+			log.error("error in FileWriter");
 			e.printStackTrace();
 		}
 	}
