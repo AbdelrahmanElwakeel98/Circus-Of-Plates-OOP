@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -15,13 +16,14 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.event.MouseInputAdapter;
 import eg.edu.alexu.csd.oop.game.GameEngine;
 import eg.edu.alexu.csd.oop.game.GameEngine.GameController;
@@ -126,7 +128,37 @@ public class Main {
 		}
 		modeChooser.setResizable(false);
 		modeChooser.setVisible(true);
-		setPlayerName(JOptionPane.showInputDialog("Please enter your 5 letter Name."));
+		JFrame inputDialog = new JFrame("Player name");
+		inputDialog.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		inputDialog.setLocationRelativeTo(null);
+		inputDialog.setSize(500, 200);
+		inputDialog.setLayout(new GridLayout(3, 1));
+		JLabel lbl = new JLabel("Please enter your 5 letter Name.", JLabel.CENTER);
+		lbl.setFont(new Font("Courier New", Font.ITALIC, 20));
+		lbl.setForeground(Color.red);
+		inputDialog.add(lbl);
+		JTextField txtPlayer = new JTextField();
+		txtPlayer.setFont(new Font("Courier New", Font.ITALIC, 20));
+		txtPlayer.setForeground(Color.blue);
+		txtPlayer.setSize(250, 50);
+		inputDialog.add(txtPlayer);
+		JPanel btnPanel = new JPanel();
+		JButton btn = new JButton("ok");
+		btn.setFont(new Font("Courier New", Font.BOLD, 20));
+		btn.setSize(100, 50);
+		btn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (!txtPlayer.getText().isEmpty()) {
+					setPlayerName(txtPlayer.getText());
+					inputDialog.setVisible(false);
+				}
+			}
+		});
+		btnPanel.add(btn);
+		inputDialog.add(btnPanel);
+		inputDialog.setVisible(true);
+		inputDialog.setResizable(false);
 	}
 
 	public static void start() {
@@ -155,11 +187,13 @@ public class Main {
 		int x = (int) (screen.width * 0.80);
 		int y = (int) (screen.height * 0.80);
 		final GameController gameController = GameEngine.start("The Egyption King",
-				new GameWorld(x, y, new Score(), getPlayerName(), modeFactory.getMode(Difficulty)), menuBar, Color.BLACK);
+				new GameWorld(x, y, new Score(), getPlayerName(), modeFactory.getMode(Difficulty)), menuBar,
+				Color.BLACK);
 		newMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameController.changeWorld(new GameWorld(x, y, new Score(), getPlayerName(), modeFactory.getMode(Difficulty)));
+				gameController.changeWorld(
+						new GameWorld(x, y, new Score(), getPlayerName(), modeFactory.getMode(Difficulty)));
 			}
 		});
 		pauseMenuItem.addActionListener(new ActionListener() {
@@ -177,19 +211,22 @@ public class Main {
 		easyModeMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameController.changeWorld(new GameWorld(x, y, new Score(), getPlayerName(), modeFactory.getMode("EASY")));
+				gameController
+						.changeWorld(new GameWorld(x, y, new Score(), getPlayerName(), modeFactory.getMode("EASY")));
 			}
 		});
 		moderateModeMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameController.changeWorld(new GameWorld(x, y, new Score(), getPlayerName(), modeFactory.getMode("MODERATE")));
+				gameController.changeWorld(
+						new GameWorld(x, y, new Score(), getPlayerName(), modeFactory.getMode("MODERATE")));
 			}
 		});
 		hardModeMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameController.changeWorld(new GameWorld(x, y, new Score(), getPlayerName(), modeFactory.getMode("HARD")));
+				gameController
+						.changeWorld(new GameWorld(x, y, new Score(), getPlayerName(), modeFactory.getMode("HARD")));
 			}
 		});
 	}

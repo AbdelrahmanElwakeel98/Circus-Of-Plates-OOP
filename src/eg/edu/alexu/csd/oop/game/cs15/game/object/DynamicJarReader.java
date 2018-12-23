@@ -66,9 +66,7 @@ public class DynamicJarReader {
 					className = className.replace('/', '.');
 					if (className.contains("CShape"))
 						ShapeClass = (Class<? extends GameObject>) cl.loadClass(className);
-				} /*else if (je.getName().contains(".png") || je.getName().contains(".jpg")) {
-					classResources.put(je.getName(), ImageIO.read(ShapeClass.getResource("/" + je.getName())));
-				}*/
+				}
 			}
 			Enumeration<JarEntry> e2 = jar.entries();
 			while (e2.hasMoreElements()) {
