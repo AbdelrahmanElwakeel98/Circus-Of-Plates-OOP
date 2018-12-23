@@ -203,6 +203,7 @@ public class GameWorld extends Observer implements World {
 				timeout = false;
 				if (lives == 0) {
 					String[] playerInfo = { this.name, this.strategy.getStrategyName(), String.valueOf(this.score) };
+					facadeLeaderboard = new FacadeLeaderboard(playerInfo);
 					facadeLeaderboard.showLeaderboard();
 				}
 			}
