@@ -77,13 +77,13 @@ public class Score {
 		scoreL = 0;
 		if (indexL>=2) {
 			if(((Shape)L.get(indexL)).getName().contains("Black") && ((Shape)L.get(indexL-1)).getName().contains("Black") && ((Shape)L.get(indexL-2)).getName().contains("Black")) {
-				System.out.println("black");
+				//System.out.println("black");
 				scoreL++;}
 			if(((Shape)L.get(indexL)).getName().contains("Blue") && ((Shape)L.get(indexL-1)).getName().contains("Blue") && ((Shape)L.get(indexL-2)).getName().contains("Blue")) {
-				System.out.println("blue");
+				//System.out.println("blue");
 				scoreL++;}
 			if(((Shape)L.get(indexL)).getName().contains("Purple") && ((Shape)L.get(indexL-1)).getName().contains("Purple") && ((Shape)L.get(indexL-2)).getName().contains("Purple")) {
-				System.out.println("purple");
+				//System.out.println("purple");
 				scoreL++;}
 			}
 		if(scoreL == 1) {

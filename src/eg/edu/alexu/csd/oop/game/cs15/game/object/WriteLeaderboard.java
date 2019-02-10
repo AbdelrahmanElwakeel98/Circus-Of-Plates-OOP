@@ -64,7 +64,7 @@ public class WriteLeaderboard {
 
 		for (int i = 0; i < this.data.get("EASY").size(); i++) {
 			namesEasy.add(this.data.get("EASY").get(i).getName());
-			System.out.println(this.data.get("EASY").get(i).getName());
+			//System.out.println(this.data.get("EASY").get(i).getName());
 			scoreEasy.add(this.data.get("EASY").get(i).getScore());
 		}
 

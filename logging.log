@@ -212,3 +212,54 @@
 2018-12-24 01:37:16 INFO  JLogger:160 - reuse the ball
 2018-12-24 01:37:17 INFO  JLogger:160 - reuse the ball
 
+18/12/24 22:17:32 INFO JLogger: ReadClass
+18/12/24 22:17:32 INFO JLogger: Creat Clown
+18/12/24 22:17:32 INFO JLogger: creat ball FlyWeightFactory
+18/12/24 22:17:32 INFO JLogger: creat ball FlyWeightFactory
+18/12/24 22:17:32 INFO JLogger: creat ball FlyWeightFactory
+18/12/24 22:17:32 INFO JLogger: creat ball FlyWeightFactory
+18/12/24 22:17:32 INFO JLogger: creat ball FlyWeightFactory
+18/12/24 22:17:32 INFO JLogger: creat ball FlyWeightFactory
+18/12/24 22:17:32 INFO JLogger: creat ball FlyWeightFactory
+18/12/24 22:17:32 INFO JLogger: creat ball FlyWeightFactory
+18/12/24 22:17:32 INFO JLogger: creat ball FlyWeightFactory
+18/12/24 22:17:32 INFO JLogger: creat ball FlyWeightFactory
+18/12/24 22:17:32 INFO JLogger: Creat CommadManger
+18/12/24 22:17:38 INFO JLogger: reuse the ball
+18/12/24 22:17:39 INFO JLogger: reuse the ball
+18/12/24 22:17:39 INFO JLogger: reuse the ball
+18/12/24 22:17:40 INFO JLogger: reuse the ball
+18/12/24 22:17:41 INFO JLogger: intersection
+18/12/24 22:17:41 INFO JLogger: Creat AddRightCommand
+18/12/24 22:17:41 INFO JLogger: creat ball FlyWeightFactory
+18/12/24 22:17:41 INFO JLogger: reuse
+18/12/24 22:17:42 INFO JLogger: reuse the ball
+18/12/24 22:17:42 INFO JLogger: reuse the ball
+18/12/24 22:17:43 INFO JLogger: reuse the ball
+18/12/24 22:17:43 INFO JLogger: reuse the ball
+18/12/24 22:17:43 INFO JLogger: reuse the ball
+18/12/24 22:17:44 INFO JLogger: intersection
+18/12/24 22:17:44 INFO JLogger: Creat AddRightCommand
+18/12/24 22:17:44 INFO JLogger: creat ball FlyWeightFactory
+18/12/24 22:17:44 INFO JLogger: reuse
+18/12/24 22:17:47 INFO JLogger: intersection
+18/12/24 22:17:47 INFO JLogger: Creat AddLeftCommand
+18/12/24 22:17:47 INFO JLogger: creat ball FlyWeightFactory
+18/12/24 22:17:49 INFO JLogger: reuse the ball
+18/12/24 22:17:49 INFO JLogger: reuse the ball
+18/12/24 22:17:49 INFO JLogger: reuse the ball
+18/12/24 22:17:50 INFO JLogger: reuse the ball
+18/12/24 22:17:51 INFO JLogger: reuse the ball
+18/12/24 22:17:52 INFO JLogger: reuse the ball
+18/12/24 22:17:52 INFO JLogger: reuse the ball
+18/12/24 22:17:53 INFO JLogger: reuse the ball
+18/12/24 22:17:54 INFO JLogger: reuse the ball
+18/12/24 22:17:56 INFO JLogger: reuse the ball
+18/12/24 22:17:57 INFO JLogger: reuse the ball
+18/12/24 22:17:58 INFO JLogger: reuse the ball
+18/12/24 22:17:58 INFO JLogger: reuse the ball
+18/12/24 22:17:58 INFO JLogger: reuse the ball
+18/12/24 22:18:00 INFO JLogger: reuse the ball
+18/12/24 22:18:00 INFO JLogger: reuse the ball
+18/12/24 22:18:02 INFO JLogger: reuse the ball
+18/12/24 22:18:02 INFO JLogger: reuse the ball

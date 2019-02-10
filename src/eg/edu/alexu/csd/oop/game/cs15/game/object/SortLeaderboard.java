@@ -18,7 +18,7 @@ public class SortLeaderboard {
 
 		int counter = 0;
 
-		System.out.println(playerData[0]);
+		//System.out.println(playerData[0]);
 
 		if (this.playerData[1].equals("EASY")) {
 			counter = 0;
@@ -62,7 +62,7 @@ public class SortLeaderboard {
 		           // arr[j+1] = key;
 		        }
 
-		        System.out.println(map.get("EASY").get(map.get("EASY").size() - 1).getName());
+		        //System.out.println(map.get("EASY").get(map.get("EASY").size() - 1).getName());
 		        return map;
 
 		} else if (this.playerData[1].equals("MOD")) {
