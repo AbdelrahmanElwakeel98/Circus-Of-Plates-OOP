@@ -1,33 +1,37 @@
 package eg.edu.alexu.csd.oop.game.cs15.game.object;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import org.apache.log4j.Logger;
-
 import eg.edu.alexu.csd.oop.game.GameObject;
 
-public class Clown implements GameObject {
+public class ConstantBackground implements GameObject {
 
 	private int x, y;
 	private boolean visible;
 	private static final int MAX_MSTATE = 1;
 	private BufferedImage[] spriteImages = new BufferedImage[MAX_MSTATE];
-	private Logger log = JLogger.getLogInstance();
 
-	public Clown(int width, int height, String path) {
+	public ConstantBackground(int width, int height, String path) {
 		this.visible = true;
+
 		// create a bunch of buffered images and place into an array, to be displayed
 		// sequentially
 		try {
 			spriteImages[0] = ImageIO.read(getClass().getResourceAsStream(path));
-			this.x = width / 2;
-			this.y = height - spriteImages[0].getHeight() - 5;
-			log.info("Creat Clown");
+			this.x = 0;
+			this.y = 0;
+			Image tmp = spriteImages[0].getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		    BufferedImage dimg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		    Graphics2D g2d = dimg.createGraphics();
+		    g2d.drawImage(tmp, 0, 0, null);
+		    g2d.dispose();
+		    spriteImages[0] = dimg;
 		} catch (IOException e) {
-			log.error("some thing error at creating clown");
 			e.printStackTrace();
 		}
 
@@ -51,12 +55,12 @@ public class Clown implements GameObject {
 
 	@Override
 	public void setY(int y) {
-		// TODO Auto-generated method stub
+		this.y = y;
+
 	}
 
 	@Override
 	public int getWidth() {
-		// System.out.println( "W "+this.spriteImages[0].getHeight());
 		return this.spriteImages[0].getWidth();
 	}
 
